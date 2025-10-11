@@ -40,7 +40,7 @@
 ### ✅ Intégration Facebook complète
 - **3 iframes Facebook** intégrés avec ratios responsives différents :
   - Post 1 : ratio 127.8% (500x639px)
-  - Post 2 : ratio 50% (500x250px) 
+  - Post 2 : ratio 124% (500x620px) - Mis à jour
   - Post 3 : ratio 120.2% (500x601px)
 - **Page dédiée actualités** (/actualites) avec les 3 publications
 - **Section Facebook** sur la page d'accueil
