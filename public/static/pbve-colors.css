@@ -1,0 +1,523 @@
+/* ============================================================================
+   PBVE (Pour Bien Vivre Ensemble) - Styles et couleurs authentiques 
+   ============================================================================ */
+
+/* Variables CSS pour les couleurs PBVE authentiques */
+:root {
+  --pbve-jaune-ocre: #D2B48C;
+  --pbve-turquoise: #40E0D0; 
+  --pbve-marron: #8B4513;
+  --pbve-violet: #8A2BE2;
+  --pbve-blanc: #FFFFFF;
+  --pbve-gris: #F5F5F5;
+}
+
+/* ============================================================================
+   LOGO PBVE - Styles spécifiques
+   ============================================================================ */
+
+/* Logo dans le header */
+.pbve-logo-header {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 3px solid var(--pbve-turquoise);
+}
+
+.pbve-logo-header:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(64, 224, 208, 0.3);
+}
+
+/* Logo responsive */
+@media (max-width: 768px) {
+  .pbve-logo-header {
+    width: 3rem !important;
+    height: 3rem !important;
+  }
+}
+
+/* ============================================================================
+   COULEURS ET DÉGRADÉS PBVE
+   ============================================================================ */
+
+/* Dégradé principal PBVE */
+.pbve-gradient-bg {
+  background: linear-gradient(135deg, var(--pbve-turquoise) 0%, var(--pbve-violet) 100%) !important;
+}
+
+/* Texte avec dégradé PBVE */
+.pbve-gradient-text {
+  background: linear-gradient(135deg, var(--pbve-turquoise) 0%, var(--pbve-violet) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+}
+
+/* Arrière-plan de page PBVE */
+.pbve-page-bg {
+  background: linear-gradient(to bottom right, var(--pbve-gris) 0%, var(--pbve-blanc) 100%) !important;
+}
+
+/* ============================================================================
+   FORÇAGE DES COULEURS TAILWIND VERS PBVE
+   ============================================================================ */
+
+/* Remplacer les bleus Tailwind par les couleurs PBVE */
+.bg-blue-600, .bg-blue-700, .from-blue-600, .to-indigo-700 {
+    background: linear-gradient(135deg, var(--pbve-turquoise) 0%, var(--pbve-violet) 100%) !important;
+}
+
+.text-blue-600, .text-blue-700 {
+    color: var(--pbve-turquoise) !important;
+}
+
+.border-blue-500 {
+    border-color: var(--pbve-turquoise) !important;
+}
+
+.hover\:text-blue-600:hover, .hover\:text-blue-800:hover {
+    color: var(--pbve-violet) !important;
+}
+
+.bg-blue-100 {
+    background-color: rgba(64, 224, 208, 0.1) !important;
+}
+
+.text-blue-800 {
+    color: var(--pbve-violet) !important;
+}
+
+/* Remplacer les verts par le turquoise PBVE */
+.bg-green-600, .bg-green-500 {
+    background-color: var(--pbve-turquoise) !important;
+}
+
+.text-green-600, .text-green-500 {
+    color: var(--pbve-turquoise) !important;
+}
+
+/* Remplacer les violets/pourpres par le violet PBVE */
+.bg-purple-600, .bg-indigo-600 {
+    background-color: var(--pbve-violet) !important;
+}
+
+.text-purple-600, .text-indigo-600 {
+    color: var(--pbve-violet) !important;
+}
+
+/* Jaune/Orange remplacés par jaune ocre PBVE */
+.bg-yellow-500, .bg-orange-600 {
+    background-color: var(--pbve-jaune-ocre) !important;
+}
+
+.text-yellow-500, .text-orange-600 {
+    color: var(--pbve-jaune-ocre) !important;
+}
+
+/* ============================================================================
+   BOUTONS ET INTERACTIONS PBVE
+   ============================================================================ */
+
+/* Bouton principal PBVE */
+.pbve-btn-primary {
+  background: linear-gradient(135deg, var(--pbve-turquoise) 0%, var(--pbve-violet) 100%);
+  color: var(--pbve-blanc);
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pbve-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(64, 224, 208, 0.3);
+  opacity: 0.9;
+}
+
+/* Bouton secondaire PBVE */
+.pbve-btn-secondary {
+  background-color: var(--pbve-jaune-ocre);
+  color: var(--pbve-marron);
+  border: 2px solid var(--pbve-marron);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.pbve-btn-secondary:hover {
+  background-color: var(--pbve-marron);
+  color: var(--pbve-blanc);
+}
+
+/* ============================================================================
+   CARTES ET COMPOSANTS PBVE
+   ============================================================================ */
+
+/* Carte avec style PBVE */
+.pbve-card {
+  background: var(--pbve-blanc);
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid var(--pbve-turquoise);
+  transition: all 0.3s ease;
+}
+
+.pbve-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Badge PBVE */
+.pbve-badge {
+  background: linear-gradient(135deg, var(--pbve-turquoise) 0%, var(--pbve-violet) 100%);
+  color: var(--pbve-blanc);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ============================================================================
+   RESPONSIVE ET ACCESSIBILITÉ
+   ============================================================================ */
+
+/* Assurer la lisibilité sur tous les écrans */
+@media (max-width: 640px) {
+  .pbve-gradient-text {
+    font-size: 1.25rem;
+  }
+  
+  .pbve-logo-header {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+}
+
+/* Mode sombre - adaptation des couleurs PBVE */
+@media (prefers-color-scheme: dark) {
+  .pbve-page-bg {
+    background: linear-gradient(to bottom right, #1a1a1a 0%, #2d2d2d 100%) !important;
+  }
+  
+  .pbve-card {
+    background-color: #2d2d2d;
+    color: var(--pbve-blanc);
+  }
+}
+
+/* ============================================================================
+   ANIMATIONS PBVE
+   ============================================================================ */
+
+/* Animation de pulsation pour les éléments en vedette */
+@keyframes pbve-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(64, 224, 208, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(64, 224, 208, 0);
+  }
+}
+
+.pbve-pulse {
+  animation: pbve-pulse 2s infinite;
+}
+
+/* Animation de fondu pour les chargements */
+@keyframes pbve-fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pbve-fade-in {
+  animation: pbve-fadeIn 0.6s ease-out;
+}
+
+/* ============================================================================
+   GALERIE PHOTOS PBVE
+   ============================================================================ */
+
+/* Effet de zoom sur les photos */
+.pbve-photo-hover {
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+.pbve-photo-hover:hover {
+  transform: scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+.pbve-photo-hover img {
+  transition: transform 0.6s ease;
+}
+
+.pbve-photo-hover:hover img {
+  transform: scale(1.1);
+}
+
+/* Filtre galerie */
+.gallery-filter {
+  transition: all 0.3s ease;
+  color: #6B7280;
+}
+
+.gallery-filter:hover {
+  color: var(--pbve-turquoise);
+}
+
+.gallery-filter.active {
+  background: linear-gradient(135deg, var(--pbve-turquoise) 0%, var(--pbve-violet) 100%) !important;
+  color: white !important;
+}
+
+/* ============================================================================
+   INTÉGRATION FACEBOOK ET RÉSEAUX SOCIAUX
+   ============================================================================ */
+
+/* Container pour iframe Facebook responsive */
+.facebook-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 127.8%; /* Ratio 500/639 */
+  overflow: hidden;
+  border-radius: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.facebook-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0.75rem;
+}
+
+/* Amélioration visuelle des iframes */
+iframe {
+  transition: all 0.3s ease;
+}
+
+iframe:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive pour les réseaux sociaux */
+@media (max-width: 768px) {
+  .facebook-container {
+    padding-bottom: 140%; /* Ratio ajusté pour mobile */
+  }
+  
+  .social-widget {
+    max-width: 100%;
+    padding: 1rem;
+  }
+}
+
+/* Animation pour les boutons sociaux */
+.social-btn {
+  transition: all 0.3s ease;
+  transform: translateY(0);
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Facebook brand colors */
+.facebook-blue {
+  background-color: #1877F2;
+  color: white;
+}
+
+.facebook-blue:hover {
+  background-color: #166FE5;
+}
+
+/* Icônes réseaux sociaux */
+.social-icon {
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.1);
+}
+
+/* Badge de réseau social */
+.social-badge {
+  background: linear-gradient(135deg, #1877F2 0%, #42A5F5 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Statistiques de réseaux sociaux */
+.social-stats {
+  background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
+  border-left: 4px solid var(--pbve-turquoise);
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Section actualités Facebook */
+.facebook-section {
+  background: linear-gradient(to bottom right, #F8F9FA 0%, #FFFFFF 100%);
+  border: 1px solid #E5E7EB;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.facebook-header {
+  background: linear-gradient(135deg, #1877F2 0%, #42A5F5 100%);
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Mobile Facebook fallback */
+.facebook-mobile-fallback {
+  background: linear-gradient(135deg, #F3F4F6 0%, #E5E7EB 100%);
+  border: 2px dashed #9CA3AF;
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.facebook-mobile-fallback .icon {
+  font-size: 3rem;
+  color: #1877F2;
+  margin-bottom: 1rem;
+}
+
+/* Lightbox */
+#lightbox {
+  backdrop-filter: blur(8px);
+  animation: fadeIn 0.3s ease;
+}
+
+#lightbox img {
+  border-radius: 0.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* Effet parallax */
+.pbve-parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Responsive parallax (désactive sur mobile) */
+@media (max-width: 768px) {
+  .pbve-parallax {
+    background-attachment: scroll;
+  }
+}
+
+/* Mosaïque de galerie */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation d'apparition en cascade */
+.gallery-item {
+  opacity: 0;
+  animation: slideInUp 0.6s ease forwards;
+}
+
+.gallery-item:nth-child(1) { animation-delay: 0.1s; }
+.gallery-item:nth-child(2) { animation-delay: 0.2s; }
+.gallery-item:nth-child(3) { animation-delay: 0.3s; }
+.gallery-item:nth-child(4) { animation-delay: 0.4s; }
+.gallery-item:nth-child(5) { animation-delay: 0.5s; }
+.gallery-item:nth-child(6) { animation-delay: 0.6s; }
+.gallery-item:nth-child(7) { animation-delay: 0.7s; }
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Overlay dégradé pour les photos */
+.photo-overlay {
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.3) 70%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+
+/* Effet de focus sur les photos principales */
+.hero-photo {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-photo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(64, 224, 208, 0.1) 0%, 
+    rgba(138, 43, 226, 0.1) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Badges de catégorie */
+.category-badge {
+  background: linear-gradient(135deg, var(--pbve-turquoise) 0%, var(--pbve-violet) 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2;
+}
