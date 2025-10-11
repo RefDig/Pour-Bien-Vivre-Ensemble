@@ -376,12 +376,12 @@ app.get('/', (c) => {
                 </h3>
               </div>
               
-              {/* Facebook iframe responsive - Post 2 */}
-              <div class="relative w-full" style="padding-bottom: 50%; height: 0; overflow: hidden;">
+              {/* Facebook iframe responsive - Post 2 (Mise à jour) */}
+              <div class="relative w-full" style="padding-bottom: 124%; height: 0; overflow: hidden;">
                 <iframe 
                   src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpourbienvivreensemble%2Fposts%2Fpfbid02Ltgj4AiEaFExFU5j5WMsrj4CMDzscuuo74WdYsSUZZ15dvSNuejvHCP4XHPvfCM7l&show_text=true&width=500" 
                   width="500" 
-                  height="250" 
+                  height="620" 
                   style="border:none;overflow:hidden;position:absolute;top:0;left:0;width:100%;height:100%;" 
                   scrolling="no" 
                   frameborder="0" 
@@ -901,11 +901,11 @@ app.get('/actualites', (c) => {
                 </h3>
               </div>
               <div class="p-4">
-                <div class="relative w-full" style="padding-bottom: 50%; height: 0; overflow: hidden;">
+                <div class="relative w-full" style="padding-bottom: 124%; height: 0; overflow: hidden;">
                   <iframe 
                     src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpourbienvivreensemble%2Fposts%2Fpfbid02Ltgj4AiEaFExFU5j5WMsrj4CMDzscuuo74WdYsSUZZ15dvSNuejvHCP4XHPvfCM7l&show_text=true&width=500" 
                     width="500" 
-                    height="250" 
+                    height="620" 
                     style="border:none;overflow:hidden;position:absolute;top:0;left:0;width:100%;height:100%;" 
                     scrolling="no" 
                     frameborder="0" 
