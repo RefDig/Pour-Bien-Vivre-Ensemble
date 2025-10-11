@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Pour Bien Vivre Ensemble</title>
+    <meta name="description" content="Association Pour Bien Vivre Ensemble - Favorisons le lien social et la solidarité dans notre communauté de Lille Sud">
+    <meta name="keywords" content="association, solidarité, lien social, communauté, bien vivre ensemble, Lille Sud">
+    <meta name="author" content="Pour Bien Vivre Ensemble">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Pour Bien Vivre Ensemble - Association Lille Sud">
+    <meta property="og:description" content="Créons ensemble une communauté plus solidaire, plus unie et plus bienveillante à Lille Sud">
+    <meta property="og:url" content="https://pourbienvivreensemble.com">
+    <meta property="og:image" content="https://pourbienvivreensemble.com/static/logo-pbve-authentique.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Pour Bien Vivre Ensemble - Association Lille Sud">
+    <meta name="twitter:description" content="Créons ensemble une communauté plus solidaire, plus unie et plus bienveillante à Lille Sud">
+    
+    <!-- PWA -->
+    <meta name="theme-color" content="#3B82F6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="PBVE">
+    
+    <!-- Icons -->
+    <link rel="icon" type="image/x-icon" href="./static/favicon.ico">
+    <link rel="apple-touch-icon" href="./static/icon-192.png">
+    <link rel="manifest" href="./static/manifest.json">
+    
+    <!-- Styles -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="./static/pbve-colors.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 font-sans">
+    <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+        <!-- Header -->
+        <header class="bg-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="flex-shrink-0">
+                            <img src="./static/logo-pbve-authentique.png" 
+                                 alt="Logo Pour Bien Vivre Ensemble - PBVE" 
+                                 class="w-16 h-16 md:w-20 md:h-20 pbve-logo-header rounded-full shadow-md">
+                        </div>
+                        <div class="hidden md:block">
+                            <h1 class="text-xl font-bold pbve-gradient-text">Pour Bien Vivre Ensemble</h1>
+                            <p class="text-sm font-medium" style="color: #8B4513;">Association Lille Sud</p>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Desktop -->
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="index.html" class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors bg-blue-100 text-blue-700">
+                            <i class="fas fa-home"></i><span>Accueil</span>
+                        </a>
+                        <a href="a-propos.html" class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-users"></i><span>À propos</span>
+                        </a>
+                        <a href="actualites.html" class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fab fa-facebook"></i><span>Actualités</span>
+                        </a>
+                        <a href="galerie.html" class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-camera"></i><span>Galerie</span>
+                        </a>
+                        <a href="evenements.html" class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-calendar"></i><span>Événements</span>
+                        </a>
+                        <a href="contact.html" class="flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-envelope"></i><span>Contact</span>
+                        </a>
+                    </nav>
+
+                    <!-- Mobile menu button -->
+                    <div class="md:hidden">
+                        <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100" onclick="toggleMobileMenu()">
+                            <i class="fas fa-bars text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Navigation -->
+                <div id="mobile-menu" class="md:hidden hidden pb-4">
+                    <div class="space-y-1">
+                        <a href="index.html" class="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium bg-blue-100 text-blue-700">
+                            <i class="fas fa-home"></i><span>Accueil</span>
+                        </a>
+                        <a href="a-propos.html" class="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-users"></i><span>À propos</span>
+                        </a>
+                        <a href="actualites.html" class="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fab fa-facebook"></i><span>Actualités</span>
+                        </a>
+                        <a href="galerie.html" class="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-camera"></i><span>Galerie</span>
+                        </a>
+                        <a href="evenements.html" class="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-calendar"></i><span>Événements</span>
+                        </a>
+                        <a href="contact.html" class="flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-100">
+                            <i class="fas fa-envelope"></i><span>Contact</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Hero Section -->
+            <section class="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center">
+                        <div class="mb-8">
+                            <img src="./static/logo-pbve-authentique.png" 
+                                 alt="Logo Pour Bien Vivre Ensemble - PBVE" 
+                                 class="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 rounded-full shadow-2xl border-4 border-white pbve-pulse">
+                        </div>
+                        <h1 class="text-4xl md:text-6xl font-bold mb-6 pbve-gradient-text">Pour Bien Vivre Ensemble</h1>
+                        <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                            Créons ensemble une communauté plus solidaire, plus unie et plus bienveillante à Lille Sud
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="a-propos.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-flex items-center justify-center">
+                                <i class="fas fa-users mr-2"></i>Découvrir l'association
+                            </a>
+                            <a href="contact.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors inline-flex items-center justify-center">
+                                <i class="fas fa-hands-helping mr-2"></i>Nous rejoindre
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Nos Valeurs -->
+            <section class="py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nos Valeurs</h2>
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto">Les principes qui guident notre action au quotidien</p>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-handshake text-2xl text-blue-600"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-3">Solidarité</h3>
+                            <p class="text-gray-600">Nous croyons en l'entraide mutuelle et au soutien entre les membres de notre communauté.</p>
+                        </div>
+                        <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-heart text-2xl text-green-600"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-3">Inclusion</h3>
+                            <p class="text-gray-600">Chacun a sa place dans notre association, quels que soient son origine, son âge ou ses capacités.</p>
+                        </div>
+                        <div class="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i class="fas fa-rocket text-2xl text-purple-600"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-3">Action</h3>
+                            <p class="text-gray-600">Nous passons des paroles aux actes concrets pour améliorer la vie de notre communauté.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Actualités Facebook -->
+            <section class="py-16 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl md:text-4xl font-bold pbve-gradient-text mb-4">
+                            <i class="fab fa-facebook mr-3"></i>Suivez Notre Actualité
+                        </h2>
+                        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                            Restez connectés avec les dernières nouvelles de l'association PBVE sur Facebook
+                        </p>
+                    </div>
+                    <div class="grid lg:grid-cols-3 gap-8 items-start">
+                        <!-- Post Facebook 1 -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 pbve-card">
+                            <div class="text-center mb-4">
+                                <h3 class="text-lg font-semibold pbve-gradient-text mb-2">
+                                    <i class="fab fa-facebook-f mr-2"></i>Publication Récente
+                                </h3>
+                            </div>
+                            <div class="relative w-full" style="padding-bottom: 127.8%; height: 0; overflow: hidden;">
+                                <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpourbienvivreensemble%2Fposts%2Fpfbid02Ufcaez1fpCKjWwrY9aDbQBmQbo4hQBhvHaUortwQhvpABv6YcRjit92GU52WppwUl&show_text=true&width=500" 
+                                        width="500" height="639" 
+                                        style="border:none;overflow:hidden;position:absolute;top:0;left:0;width:100%;height:100%;" 
+                                        scrolling="no" frameborder="0" allowfullscreen="true" 
+                                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                                        class="rounded-lg shadow-md">
+                                </iframe>
+                            </div>
+                        </div>
+
+                        <!-- Post Facebook 2 -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 pbve-card">
+                            <div class="text-center mb-4">
+                                <h3 class="text-lg font-semibold pbve-gradient-text mb-2">
+                                    <i class="fab fa-facebook-f mr-2"></i>Actualité PBVE
+                                </h3>
+                            </div>
+                            <div class="relative w-full" style="padding-bottom: 124%; height: 0; overflow: hidden;">
+                                <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpourbienvivreensemble%2Fposts%2Fpfbid02Ltgj4AiEaFExFU5j5WMsrj4CMDzscuuo74WdYsSUZZ15dvSNuejvHCP4XHPvfCM7l&show_text=true&width=500" 
+                                        width="500" height="620" 
+                                        style="border:none;overflow:hidden;position:absolute;top:0;left:0;width:100%;height:100%;" 
+                                        scrolling="no" frameborder="0" allowfullscreen="true" 
+                                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                                        class="rounded-lg shadow-md">
+                                </iframe>
+                            </div>
+                        </div>
+
+                        <!-- Post Facebook 3 -->
+                        <div class="bg-white rounded-2xl shadow-xl p-6 pbve-card">
+                            <div class="text-center mb-4">
+                                <h3 class="text-lg font-semibold pbve-gradient-text mb-2">
+                                    <i class="fab fa-facebook-f mr-2"></i>Dernière Actualité
+                                </h3>
+                            </div>
+                            <div class="relative w-full" style="padding-bottom: 120.2%; height: 0; overflow: hidden;">
+                                <iframe src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpourbienvivreensemble%2Fposts%2Fpfbid0SLCFSu3J4s1jY8CmczbjyN4k3msh16cB2MNLCrdeBiiBK92pYk5b9LjGZABSbvRSl&show_text=true&width=500" 
+                                        width="500" height="601" 
+                                        style="border:none;overflow:hidden;position:absolute;top:0;left:0;width:100%;height:100%;" 
+                                        scrolling="no" frameborder="0" allowfullscreen="true" 
+                                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                                        class="rounded-lg shadow-md">
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div>
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="./static/logo-pbve-authentique.png" alt="Logo PBVE" class="w-10 h-10 rounded-full">
+                            <h3 class="text-lg font-semibold">Pour Bien Vivre Ensemble</h3>
+                        </div>
+                        <p class="text-gray-400 text-sm">
+                            Une association dédiée au renforcement des liens sociaux et à la promotion de la solidarité dans notre communauté de Lille Sud.
+                        </p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Contact</h3>
+                        <div class="space-y-2 text-sm text-gray-400">
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-envelope"></i>
+                                <span>contact@pourbienvivreensemble.fr</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-phone"></i>
+                                <span>01 23 45 67 89</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>250 rue Wagner, Lille Sud</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-4">Suivez-nous</h3>
+                        <div class="flex space-x-4">
+                            <a href="https://www.facebook.com/pourbienvivreensemble" target="_blank" 
+                               class="text-gray-400 hover:text-blue-400 transition-colors" title="Page Facebook PBVE">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </a>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">
+                            <i class="fab fa-facebook-f mr-1"></i>@pourbienvivreensemble
+                        </p>
+                    </div>
+                </div>
+                <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
+                    <p>&copy; 2024 Pour Bien Vivre Ensemble. Tous droits réservés.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="./static/app.js"></script>
+</body>
+</html>
