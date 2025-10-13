@@ -1,136 +1,142 @@
 import { Hono } from 'hono'
+import { setCookie, getCookie, deleteCookie } from 'hono/cookie'
 import { Layout } from '../components/Layout'
 
-interface HonoContext {
-  Bindings: {
-    DB: D1Database;
-  };
+const app = new Hono()
+
+// Configuration des identifiants admin
+const ADMIN_EMAIL = 'admin@pourbienvivreensemble.fr'
+const ADMIN_PASSWORD = 'admin123' // En production, utiliser un hash sécurisé
+
+// Middleware d'authentification
+export const requireAuth = async (c: any, next: any) => {
+  const isAuthenticated = getCookie(c, 'admin_session')
+  
+  if (!isAuthenticated) {
+    return c.redirect('/auth/login')
+  }
+  
+  await next()
 }
 
-const auth = new Hono<HonoContext>()
-
 // Page de connexion
-auth.get('/login', (c) => {
+app.get('/login', (c) => {
   const error = c.req.query('error')
   
-  return c.html(`
-    <!DOCTYPE html>
-    <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Connexion Admin - Pour Bien Vivre Ensemble</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
-        <link href="/static/pbve-colors.css" rel="stylesheet">
-    </head>
-    <body class="pbve-page-bg min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
-            <div class="text-center">
-                <div class="mx-auto h-20 w-20 mb-4">
-                    <img 
-                      src="/static/logo-pbve-authentique.png" 
-                      alt="Logo Pour Bien Vivre Ensemble - PBVE" 
-                      class="w-20 h-20 rounded-full shadow-lg border-4 border-white"
-                    />
+  return c.html(
+    <Layout title="Connexion Administrateur - PBVE" currentPath="/auth/login">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8">
+          <div className="text-center">
+            <img 
+              src="/static/logo-pbve-authentique.png" 
+              alt="Logo PBVE" 
+              className="mx-auto w-24 h-24 rounded-full shadow-lg border-4 border-white"
+            />
+            <h1 className="mt-6 text-3xl font-bold text-gray-900">
+              Espace Administrateur
+            </h1>
+            <p className="mt-2 text-sm text-gray-600">
+              Pour Bien Vivre Ensemble - PBVE
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-2xl shadow-xl p-8">
+            <form method="POST" action="/auth/login" className="space-y-6">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <i className="fas fa-envelope mr-2"></i>
+                  Adresse email
+                </label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="admin@pourbienvivreensemble.fr"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                  <i className="fas fa-lock mr-2"></i>
+                  Mot de passe
+                </label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  className="w-full px-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  placeholder="••••••••"
+                />
+              </div>
+              
+              {error && (
+                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+                  <div className="flex">
+                    <i className="fas fa-exclamation-triangle mr-2 mt-0.5"></i>
+                    <span className="text-sm">Identifiants incorrects. Veuillez réessayer.</span>
+                  </div>
                 </div>
-                <h1 class="text-3xl font-bold pbve-gradient-text mb-2">
-                    Espace Administrateur
-                </h1>
-                <p class="text-gray-600">
-                    Connexion sécurisée pour l'administration PBVE
-                </p>
-            </div>
-
-            ${error ? `
-                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                    <div class="flex items-center">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        ${error === 'invalid_credentials' ? 'Identifiants incorrects.' : 
-                          error === 'admin_required' ? 'Accès administrateur requis.' : 
-                          'Erreur de connexion.'}
-                    </div>
-                </div>
-            ` : ''}
-
-            <form method="POST" action="/auth/login" class="space-y-6">
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                        Email administrateur
-                    </label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="marie.cappello@pourbienvivreensemble.com"
-                    />
-                </div>
-
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                        Mot de passe
-                    </label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        required
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Votre mot de passe"
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    class="w-full pbve-gradient-bg text-white py-3 px-6 rounded-lg font-semibold hover:opacity-90 transition-opacity flex items-center justify-center"
-                >
-                    <i class="fas fa-sign-in-alt mr-2"></i>
-                    Se connecter
-                </button>
+              )}
+              
+              <button
+                type="submit"
+                className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200"
+              >
+                <i className="fas fa-sign-in-alt mr-2"></i>
+                Se connecter
+              </button>
             </form>
-
-            <div class="bg-blue-50 border border-blue-200 text-blue-700 px-4 py-3 rounded-lg">
-                <div class="text-sm">
-                    <strong>Démonstration :</strong><br/>
-                    Email : marie.cappello@pourbienvivreensemble.com<br/>
-                    Mot de passe : admin123
-                </div>
+            
+            <div className="mt-6 text-center text-sm text-gray-500">
+              <i className="fas fa-shield-alt mr-1"></i>
+              Accès réservé aux administrateurs PBVE
             </div>
-
-            <div class="text-center">
-                <a href="/" class="text-blue-600 hover:text-blue-800 font-medium">
-                    <i class="fas fa-arrow-left mr-2"></i>
-                    Retour au site
-                </a>
-            </div>
+          </div>
+          
+          <div className="text-center">
+            <a 
+              href="/" 
+              className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+            >
+              <i className="fas fa-arrow-left mr-1"></i>
+              Retour au site
+            </a>
+          </div>
         </div>
-    </body>
-    </html>
-  `)
+      </div>
+    </Layout>
+  )
 })
 
 // Traitement de la connexion
-auth.post('/login', async (c) => {
-  const formData = await c.req.parseBody()
-  const email = formData.email as string
-  const password = formData.password as string
-
-  // Authentification simple pour la démonstration
-  if (email === 'marie.cappello@pourbienvivreensemble.com' && password === 'admin123') {
-    // Définir le cookie de session
-    c.header('Set-Cookie', 'admin_session=true; Path=/; HttpOnly; Max-Age=86400')
+app.post('/login', async (c) => {
+  const body = await c.req.formData()
+  const email = body.get('email') as string
+  const password = body.get('password') as string
+  
+  if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+    // Créer une session (en production, utiliser JWT ou session sécurisée)
+    setCookie(c, 'admin_session', 'authenticated', {
+      httpOnly: true,
+      secure: true,
+      maxAge: 86400, // 24 heures
+      sameSite: 'Lax'
+    })
+    
     return c.redirect('/admin')
   }
-
-  return c.redirect('/auth/login?error=invalid_credentials')
+  
+  return c.redirect('/auth/login?error=1')
 })
 
 // Déconnexion
-auth.post('/logout', (c) => {
-  c.header('Set-Cookie', 'admin_session=; Path=/; HttpOnly; Max-Age=0')
-  return c.redirect('/')
+app.post('/logout', (c) => {
+  deleteCookie(c, 'admin_session')
+  return c.redirect('/auth/login')
 })
 
-export default auth
+export default app

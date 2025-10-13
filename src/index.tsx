@@ -3,9 +3,19 @@ import { renderer } from './renderer'
 import { Layout } from './components/Layout'
 import authRoutes from './routes/auth'
 import adminRoutes from './routes/admin'
+import adminGalerieRoutes from './routes/admin-galerie-simple'
+import adminGalerieFonctionnelleRoutes from './routes/admin-galerie-fonctionnelle'
+import adminGalerieCorrigeeRoutes from './routes/admin-galerie-corrigee'
+import adminAchievementsRoutes from './routes/admin-achievements'
 import achievementsRoutes from './routes/achievements'
 import realisationsRoutes from './routes/realisations'
 import adminRealisationsRoutes from './routes/admin-realisations'
+import galerieSimpleRoutes from './routes/galerie-simple'
+import galerieDynamiqueRoutes from './routes/galerie-dynamique'
+import galerieCorrigeeRoutes from './routes/galerie-corrigee'
+import loginSimpleRoutes from './routes/login-simple'
+import apiGalerieRoutes from './routes/api-galerie'
+import transfertDonneesRoutes from './routes/transfert-donnees'
 
 const app = new Hono()
 
@@ -14,9 +24,19 @@ app.use(renderer)
 // Intégration des routes
 app.route('/auth', authRoutes)
 app.route('/admin', adminRoutes)
+app.route('/admin/galerie-simple', adminGalerieRoutes) // Interface simple galerie qui fonctionne
+app.route('/admin/galerie-fonctionnelle', adminGalerieFonctionnelleRoutes) // Ancienne interface
+app.route('/admin/galerie', adminGalerieCorrigeeRoutes) // NOUVELLE interface CORRIGÉE qui FONCTIONNE
+app.route('/login', loginSimpleRoutes) // Page de connexion qui fonctionne
+app.route('/admin/achievements', adminAchievementsRoutes) // Admin des réalisations
 app.route('/realisations', achievementsRoutes) // Ancienne route (à conserver)
 app.route('/nos-realisations', realisationsRoutes) // Nouvelle page réalisations
-app.route('/admin/realisations', adminRealisationsRoutes) // Admin des réalisations
+app.route('/admin/realisations', adminRealisationsRoutes) // Admin des réalisations (ancien)
+app.route('/api/galerie', apiGalerieRoutes) // API pour gérer les photos
+app.route('/admin/transfert', transfertDonneesRoutes) // Utilitaire de récupération des photos
+app.route('/galerie-old', galerieSimpleRoutes) // Ancienne galerie statique
+app.route('/galerie-old2', galerieDynamiqueRoutes) // Ancienne galerie dynamique
+app.route('/galerie', galerieCorrigeeRoutes) // NOUVELLE galerie CORRIGÉE qui fonctionne
 
 app.get('/', (c) => {
   return c.render(
@@ -1019,7 +1039,8 @@ app.get('/actualites', (c) => {
   )
 })
 
-app.get('/galerie', (c) => {
+// Route galerie déplacée vers /routes/galerie.tsx
+app.get('/galerie-old', (c) => {
   return c.render(
     <Layout activeMenu="gallery">
       {/* Hero Galerie */}

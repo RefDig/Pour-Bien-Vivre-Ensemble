@@ -1,16 +1,9 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "webapp",
+  "name": "pour-bien-vivre-ensemble",
   "compatibility_date": "2025-10-11",
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
-  ],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "pbve-realisations",
-      "database_id": "local-db-id"
-    }
   ]
 }
