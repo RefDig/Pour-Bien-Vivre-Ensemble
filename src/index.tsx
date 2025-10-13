@@ -4,6 +4,8 @@ import { Layout } from './components/Layout'
 import authRoutes from './routes/auth'
 import adminRoutes from './routes/admin'
 import achievementsRoutes from './routes/achievements'
+import realisationsRoutes from './routes/realisations'
+import adminRealisationsRoutes from './routes/admin-realisations'
 
 const app = new Hono()
 
@@ -12,7 +14,9 @@ app.use(renderer)
 // Intégration des routes
 app.route('/auth', authRoutes)
 app.route('/admin', adminRoutes)
-app.route('/realisations', achievementsRoutes)
+app.route('/realisations', achievementsRoutes) // Ancienne route (à conserver)
+app.route('/nos-realisations', realisationsRoutes) // Nouvelle page réalisations
+app.route('/admin/realisations', adminRealisationsRoutes) // Admin des réalisations
 
 app.get('/', (c) => {
   return c.render(

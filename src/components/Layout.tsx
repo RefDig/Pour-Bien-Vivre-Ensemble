@@ -2,6 +2,7 @@ export function Layout({ children, activeMenu = 'home' }: { children: any; activ
   const menuItems = [
     { id: 'home', label: 'Accueil', href: '/', icon: 'fas fa-home' },
     { id: 'about', label: 'À propos', href: '/a-propos', icon: 'fas fa-users' },
+    { id: 'realisations', label: 'Réalisations', href: '/nos-realisations', icon: 'fas fa-star' },
     { id: 'news', label: 'Actualités', href: '/actualites', icon: 'fab fa-facebook' },
     { id: 'gallery', label: 'Galerie', href: '/galerie', icon: 'fas fa-camera' },
     { id: 'events', label: 'Événements', href: '/evenements', icon: 'fas fa-calendar' },
