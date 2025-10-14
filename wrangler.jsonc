@@ -5,5 +5,17 @@
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "GALERIE_DATA",
+      "id": "galerie_data_production",
+      "preview_id": "galerie_data_preview"
+    },
+    {
+      "binding": "REALISATIONS_DATA", 
+      "id": "realisations_data_production",
+      "preview_id": "realisations_data_preview"
+    }
   ]
 }

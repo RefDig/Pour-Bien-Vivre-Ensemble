@@ -206,17 +206,26 @@ app.get('/', (c) => {
               <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <i className="fas fa-plus text-purple-600 text-xl"></i>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Nouvelle Réalisation</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Gestion Réalisations</h3>
               <p className="text-sm text-gray-500 mb-4">
-                Ajouter un contenu à la section réalisations
+                Gérer les contenus (KV Production)
               </p>
-              <a 
-                href="/admin/achievements/new"
-                className="inline-flex items-center bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700"
-              >
-                <i className="fas fa-plus mr-2"></i>
-                Créer
-              </a>
+              <div className="space-y-2">
+                <a 
+                  href="/admin/realisations-production"
+                  className="inline-flex items-center bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 w-full justify-center"
+                >
+                  <i className="fas fa-cloud mr-2"></i>
+                  Réalisations Production
+                </a>
+                <a 
+                  href="/admin/achievements"
+                  className="inline-flex items-center bg-gray-400 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-500 w-full justify-center"
+                >
+                  <i className="fas fa-plus mr-2"></i>
+                  Réalisations (anciennes)
+                </a>
+              </div>
             </div>
           </div>
 
@@ -228,15 +237,24 @@ app.get('/', (c) => {
               </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Organiser Galerie</h3>
               <p className="text-sm text-gray-500 mb-4">
-                Gérer les catégories et photos
+                Gérer les catégories et photos (KV Production)
               </p>
-              <a 
-                href="/admin/gallery"
-                className="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700"
-              >
-                <i className="fas fa-cog mr-2"></i>
-                Gérer
-              </a>
+              <div className="space-y-2">
+                <a 
+                  href="/admin/galerie-production"
+                  className="inline-flex items-center bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 w-full justify-center"
+                >
+                  <i className="fas fa-cloud mr-2"></i>
+                  Galerie Production
+                </a>
+                <a 
+                  href="/admin/galerie"
+                  className="inline-flex items-center bg-gray-400 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-500 w-full justify-center"
+                >
+                  <i className="fas fa-cog mr-2"></i>
+                  Galerie (ancienne)
+                </a>
+              </div>
             </div>
           </div>
         </div>

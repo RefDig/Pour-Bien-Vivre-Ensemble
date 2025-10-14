@@ -6,15 +6,19 @@ import adminRoutes from './routes/admin'
 import adminGalerieRoutes from './routes/admin-galerie-simple'
 import adminGalerieFonctionnelleRoutes from './routes/admin-galerie-fonctionnelle'
 import adminGalerieCorrigeeRoutes from './routes/admin-galerie-corrigee'
+import adminGalerieProductionRoutes from './routes/admin-galerie-production'
 import adminAchievementsRoutes from './routes/admin-achievements'
 import achievementsRoutes from './routes/achievements'
 import realisationsRoutes from './routes/realisations'
 import adminRealisationsRoutes from './routes/admin-realisations'
+import adminRealisationsProductionRoutes from './routes/admin-realisations-production'
 import galerieSimpleRoutes from './routes/galerie-simple'
 import galerieDynamiqueRoutes from './routes/galerie-dynamique'
 import galerieCorrigeeRoutes from './routes/galerie-corrigee'
 import loginSimpleRoutes from './routes/login-simple'
 import apiGalerieRoutes from './routes/api-galerie'
+import apiGalerieProductionRoutes from './routes/api-galerie-production'
+import apiRealisationsProductionRoutes from './routes/api-realisations-production'
 import transfertDonneesRoutes from './routes/transfert-donnees'
 
 const app = new Hono()
@@ -27,12 +31,16 @@ app.route('/admin', adminRoutes)
 app.route('/admin/galerie-simple', adminGalerieRoutes) // Interface simple galerie qui fonctionne
 app.route('/admin/galerie-fonctionnelle', adminGalerieFonctionnelleRoutes) // Ancienne interface
 app.route('/admin/galerie', adminGalerieCorrigeeRoutes) // NOUVELLE interface CORRIGÉE qui FONCTIONNE
+app.route('/admin/galerie-production', adminGalerieProductionRoutes) // INTERFACE PRODUCTION avec API KV
 app.route('/login', loginSimpleRoutes) // Page de connexion qui fonctionne
 app.route('/admin/achievements', adminAchievementsRoutes) // Admin des réalisations
 app.route('/realisations', achievementsRoutes) // Ancienne route (à conserver)
 app.route('/nos-realisations', realisationsRoutes) // Nouvelle page réalisations
 app.route('/admin/realisations', adminRealisationsRoutes) // Admin des réalisations (ancien)
+app.route('/admin/realisations-production', adminRealisationsProductionRoutes) // ADMIN PRODUCTION réalisations avec API KV
 app.route('/api/galerie', apiGalerieRoutes) // API pour gérer les photos
+app.route('/api/galerie-production', apiGalerieProductionRoutes) // API PRODUCTION galerie avec KV storage
+app.route('/api/realisations-production', apiRealisationsProductionRoutes) // API PRODUCTION réalisations avec KV storage
 app.route('/admin/transfert', transfertDonneesRoutes) // Utilitaire de récupération des photos
 app.route('/galerie-old', galerieSimpleRoutes) // Ancienne galerie statique
 app.route('/galerie-old2', galerieDynamiqueRoutes) // Ancienne galerie dynamique
