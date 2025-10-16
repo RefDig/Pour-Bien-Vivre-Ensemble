@@ -9,13 +9,11 @@
   "kv_namespaces": [
     {
       "binding": "GALERIE_DATA",
-      "id": "galerie_data_production",
-      "preview_id": "galerie_data_preview"
+      "id": "42da596772d84aa3bbf313755fca2fde"
     },
     {
       "binding": "REALISATIONS_DATA", 
-      "id": "realisations_data_production",
-      "preview_id": "realisations_data_preview"
+      "id": "66a3c6babc1d4867bd97f5d90b31a454"
     }
   ]
 }

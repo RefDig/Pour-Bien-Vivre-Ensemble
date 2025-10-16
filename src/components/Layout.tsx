@@ -10,7 +10,7 @@ export function Layout({ children, activeMenu = 'home' }: { children: any; activ
   ]
 
   return (
-    <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <>
       {/* Header */}
       <header class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,6 +149,21 @@ export function Layout({ children, activeMenu = 'home' }: { children: any; activ
           </div>
         </div>
       </footer>
-    </div>
+
+      {/* Service Worker Registration */}
+      <script dangerouslySetInnerHTML={{ __html: `
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', function() {
+            navigator.serviceWorker.register('/static/service-worker.js')
+              .then(function(registration) {
+                console.log('✅ Service Worker enregistré avec succès:', registration.scope);
+              })
+              .catch(function(error) {
+                console.log('❌ Erreur lors de l\\'enregistrement du Service Worker:', error);
+              });
+          });
+        }
+      `}} />
+    </>
   )
 }

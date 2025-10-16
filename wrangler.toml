@@ -1,0 +1,10 @@
+name = "pour-bien-vivre-ensemble"
+compatibility_date = "2023-10-14"
+
+[[kv_namespaces]]
+binding = "GALERIE_DATA"
+id = "42da596772d84aa3bbf313755fca2fde"
+
+[[kv_namespaces]]
+binding = "REALISATIONS_DATA"
+id = "66a3c6babc1d4867bd97f5d90b31a454"
