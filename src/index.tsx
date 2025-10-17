@@ -31,6 +31,7 @@ app.route('/admin', adminRoutes)
 app.route('/admin/galerie-simple', adminGalerieRoutes) // Interface simple galerie qui fonctionne
 app.route('/admin/galerie-fonctionnelle', adminGalerieFonctionnelleRoutes) // Ancienne interface
 app.route('/admin/galerie', adminGalerieCorrigeeRoutes) // NOUVELLE interface CORRIGÉE qui FONCTIONNE
+app.route('/admin/galerie-corrigee', adminGalerieCorrigeeRoutes) // ALIAS pour test direct
 app.route('/admin/galerie-production', adminGalerieProductionRoutes) // INTERFACE PRODUCTION avec API KV
 app.route('/login', loginSimpleRoutes) // Page de connexion qui fonctionne
 app.route('/admin/achievements', adminAchievementsRoutes) // Admin des réalisations
