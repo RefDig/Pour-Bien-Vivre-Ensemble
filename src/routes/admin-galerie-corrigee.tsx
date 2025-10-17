@@ -296,33 +296,47 @@ app.get('/', (c) => {
         }
 
         // Prévisualiser l'image sélectionnée
-        document.getElementById('photoInput').addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                // Vérifier la taille
-                if (file.size > 5 * 1024 * 1024) {
-                    afficherMessage('Fichier trop volumineux (max 5MB)', 'error');
-                    this.value = '';
-                    return;
-                }
-                
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('previewImage').src = e.target.result;
-                    document.getElementById('preview').classList.remove('hidden');
-                }
-                reader.readAsDataURL(file);
-            } else {
-                document.getElementById('preview').classList.add('hidden');
+        function initialiserPreview() {
+            const photoInput = document.getElementById('photoInput');
+            if (photoInput) {
+                photoInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        // Vérifier la taille
+                        if (file.size > 5 * 1024 * 1024) {
+                            afficherMessage('Fichier trop volumineux (max 5MB)', 'error');
+                            this.value = '';
+                            return;
+                        }
+                        
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('previewImage').src = e.target.result;
+                            document.getElementById('preview').classList.remove('hidden');
+                        }
+                        reader.readAsDataURL(file);
+                    } else {
+                        document.getElementById('preview').classList.add('hidden');
+                    }
+                });
             }
-        });
+        }
 
         // Ajouter une photo
         function ajouterPhoto() {
+            console.log('🖱️ [ADMIN] Clic sur bouton Ajouter Photo');
+            
             const input = document.getElementById('photoInput');
             const titre = document.getElementById('photoTitle').value.trim();
             const description = document.getElementById('photoDescription').value.trim();
             const categorie = document.getElementById('photoCategory').value;
+            
+            console.log('📋 [ADMIN] Validation:', { 
+                hasFile: !!input.files[0], 
+                titre, 
+                description, 
+                categorie 
+            });
             
             // Validation
             if (!input.files[0]) {
@@ -342,10 +356,14 @@ app.get('/', (c) => {
                 return;
             }
             
+            console.log('✅ [ADMIN] Validation OK, lecture du fichier...');
+            
             const file = input.files[0];
             const reader = new FileReader();
             
             reader.onload = function(e) {
+                console.log('📸 [ADMIN] Fichier lu, création de l\'objet photo...');
+                
                 const nouvellePhoto = {
                     id: Date.now(),
                     titre: titre,
@@ -360,6 +378,8 @@ app.get('/', (c) => {
                 };
                 
                 photos.push(nouvellePhoto);
+                console.log(\`📷 [ADMIN] Photo ajoutée au tableau, total: \${photos.length}\`);
+                
                 sauvegarderPhotos();
                 mettreAJourTout();
                 
@@ -374,7 +394,8 @@ app.get('/', (c) => {
                 afficherMessage(\`Photo "\${titre}" ajoutée avec succès !\`, 'success');
             };
             
-            reader.onerror = function() {
+            reader.onerror = function(error) {
+                console.error('❌ [ADMIN] Erreur FileReader:', error);
                 afficherMessage('Erreur lors de la lecture du fichier', 'error');
             };
             
@@ -647,6 +668,7 @@ app.get('/', (c) => {
         // Initialiser au chargement
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 [ADMIN] Initialisation interface administration...');
+            initialiserPreview();
             chargerDonnees();
         });
 
