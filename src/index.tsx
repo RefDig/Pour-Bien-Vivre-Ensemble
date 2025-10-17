@@ -23,6 +23,9 @@ import transfertDonneesRoutes from './routes/transfert-donnees'
 
 const app = new Hono()
 
+// Redirection edge pour /auth/*
+app.get('/auth/*', (c) => c.redirect('/admin/realisations/login', 302))
+
 app.use(renderer)
 
 // Intégration des routes

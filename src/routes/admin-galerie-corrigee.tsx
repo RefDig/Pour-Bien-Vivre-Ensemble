@@ -11,6 +11,18 @@ app.get('/', (c) => {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Galerie - PBVE</title>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="PBVE Galerie">
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="apple-touch-icon" sizes="72x72" href="/static/icon-72.png">
+    <link rel="apple-touch-icon" sizes="96x96" href="/static/icon-96.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/static/icon-128.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/static/icon-144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/static/icon-152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/icon-192.png">
+    <link rel="apple-touch-icon" sizes="384x384" href="/static/icon-384.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/static/icon-512.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -223,6 +235,18 @@ app.get('/', (c) => {
     </div>
 
     <script>
+        // Enregistrement du service worker pour PWA (iOS & Android)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/static/service-worker.js')
+                    .then(function(registration) {
+                        console.log('✅ Service Worker enregistré avec succès:', registration);
+                    })
+                    .catch(function(error) {
+                        console.error('❌ Erreur Service Worker:', error);
+                    });
+            });
+        }
         // Données stockées - MÊMES CLÉS que la galerie publique
         let photos = [];
         let categories = ['ateliers', 'sorties', 'fetes', 'portraits', 'activites', 'evenements'];

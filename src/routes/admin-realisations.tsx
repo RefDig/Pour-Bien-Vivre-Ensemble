@@ -27,29 +27,24 @@ app.use(renderer)
 // Middleware d'authentification
 async function requireAuth(c: any, next: any) {
   const sessionId = getCookie(c, 'admin_session')
-  
   if (!sessionId) {
-    return c.redirect('/admin/login')
+    return c.redirect('/admin/realisations/login')
   }
-  
   // Vérifier la session en base (si DB disponible)
   if (c.env?.DB) {
     try {
       const session = await c.env.DB.prepare(
         'SELECT s.*, u.email, u.nom FROM admin_sessions s JOIN admin_users u ON s.user_id = u.id WHERE s.id = ? AND s.expires_at > datetime("now")'
       ).bind(sessionId).first()
-      
       if (!session) {
-        return c.redirect('/admin/login')
+        return c.redirect('/admin/realisations/login')
       }
-      
       c.set('user', session)
     } catch (error) {
       console.error('Erreur vérification session:', error)
-      return c.redirect('/admin/login')
+      return c.redirect('/admin/realisations/login')
     }
   }
-  
   await next()
 }
 
@@ -80,6 +75,7 @@ const realisationsExemple = [
 
 // Route de connexion admin
 app.get('/login', (c) => {
+  const error = c.req.query('error')
   return c.render(
     <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center px-4">
       <div class="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
@@ -90,8 +86,15 @@ app.get('/login', (c) => {
           <h1 class="text-2xl font-bold text-gray-900">Administration PBVE</h1>
           <p class="text-gray-600 mt-2">Gestion des réalisations</p>
         </div>
-        
-        <form method="POST" action="/admin/realisations/login" class="space-y-6">
+        {error && (
+          <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+            <div class="flex">
+              <i class="fas fa-exclamation-triangle mr-2 mt-0.5"></i>
+              <span class="text-sm">Identifiants incorrects. Veuillez réessayer.</span>
+            </div>
+          </div>
+        )}
+        <form method="post" action="/admin/realisations/login" class="space-y-6">
           <div>
             <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
               Email administrateur
@@ -105,7 +108,6 @@ app.get('/login', (c) => {
               placeholder="admin@pbve.fr"
             />
           </div>
-          
           <div>
             <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
               Mot de passe
@@ -119,7 +121,6 @@ app.get('/login', (c) => {
               placeholder="••••••••"
             />
           </div>
-          
           <button
             type="submit"
             class="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-lg font-semibold hover:from-purple-700 hover:to-pink-700 transition-colors"
@@ -128,16 +129,14 @@ app.get('/login', (c) => {
             Se connecter
           </button>
         </form>
-        
         <div class="mt-6 text-center text-sm text-gray-500">
           <p>Compte de démonstration :</p>
           <p><strong>Email :</strong> admin@pbve.fr</p>
           <p><strong>Mot de passe :</strong> pbve2024!</p>
         </div>
       </div>
-    </div>,
-    { title: 'Connexion Admin - PBVE' }
-  )
+    </div>
+  , 'Connexion Admin - PBVE')
 })
 
 // Traitement de la connexion
@@ -210,6 +209,13 @@ app.get('/', requireAuth, async (c) => {
                 Administration - Réalisations
               </h1>
               <div class="flex items-center space-x-4">
+                <a
+                  href="/admin-galerie-corrigee"
+                  class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors text-sm"
+                >
+                  <i class="fas fa-images mr-2"></i>
+                  Galerie
+                </a>
                 <span class="text-sm text-gray-600">
                   Connecté en tant qu'admin
                 </span>
@@ -546,7 +552,7 @@ app.get('/nouveau', requireAuth, (c) => {
 // Traitement de création d'une réalisation
 app.post('/creer', requireAuth, async (c) => {
   const formData = await c.req.parseBody()
-  
+
   const realisation: Realisation = {
     titre: formData.titre as string,
     description: formData.description as string || '',
@@ -557,8 +563,10 @@ app.post('/creer', requireAuth, async (c) => {
     duree: formData.duree ? parseInt(formData.duree as string) * 60 : undefined,
     statut: formData.statut as string || 'brouillon'
   }
-  
-  // Enregistrer en base si disponible
+
+  let erreur = ''
+  let success = false
+
   if (c.env?.DB) {
     try {
       await c.env.DB.prepare(`
@@ -574,14 +582,127 @@ app.post('/creer', requireAuth, async (c) => {
         realisation.duree || null,
         realisation.statut
       ).run()
-      
-      console.log('Réalisation créée avec succès')
+      success = true
     } catch (error) {
       console.error('Erreur création réalisation:', error)
+      erreur = "Erreur lors de l'enregistrement en base : " + (error.message || error.toString())
     }
+  } else {
+    erreur = "Base de données D1 non accessible. Contactez l'administrateur."
   }
-  
-  return c.redirect('/admin/realisations')
+
+  if (success) {
+    return c.redirect('/admin/realisations?success=1')
+  } else {
+    // Afficher le formulaire avec le message d'erreur
+    return c.render(
+      <Layout activeMenu="admin">
+        <div class="max-w-2xl mx-auto mt-10 bg-white rounded-lg shadow p-8">
+          <h2 class="text-xl font-bold mb-4 text-red-600">Erreur lors de la création de la réalisation</h2>
+          <div class="mb-6 text-red-700 bg-red-100 border border-red-300 rounded p-4">
+            {erreur}
+          </div>
+          <a href="/admin/realisations" class="text-blue-600 hover:underline">Retour à la liste des réalisations</a>
+        </div>
+      </Layout>,
+      { title: 'Erreur création réalisation - Admin PBVE' }
+    )
+  }
+})
+
+
+// Route de modification d'une réalisation (POST)
+app.post('/modifier/:id', requireAuth, async (c) => {
+  const id = c.req.param('id')
+  const formData = await c.req.parseBody()
+  let erreur = ''
+  let success = false
+
+  const realisation: Realisation = {
+    titre: formData.titre as string,
+    description: formData.description as string || '',
+    categorie: formData.categorie as string,
+    url_contenu: formData.url_contenu as string,
+    en_vedette: formData.en_vedette === 'on',
+    auteur: formData.auteur as string || 'PBVE',
+    duree: formData.duree ? parseInt(formData.duree as string) * 60 : undefined,
+    statut: formData.statut as string || 'brouillon'
+  }
+
+  if (c.env?.DB) {
+    try {
+      await c.env.DB.prepare(`
+        UPDATE realisations SET titre=?, description=?, categorie=?, url_contenu=?, en_vedette=?, auteur=?, duree=?, statut=? WHERE id=?
+      `).bind(
+        realisation.titre,
+        realisation.description,
+        realisation.categorie,
+        realisation.url_contenu,
+        realisation.en_vedette ? 1 : 0,
+        realisation.auteur,
+        realisation.duree || null,
+        realisation.statut,
+        id
+      ).run()
+      success = true
+    } catch (error) {
+      erreur = "Erreur lors de la modification en base : " + (error.message || error.toString())
+    }
+  } else {
+    erreur = "Base de données D1 non accessible. Contactez l'administrateur."
+  }
+
+  if (success) {
+    return c.redirect('/admin/realisations?success=1')
+  } else {
+    return c.render(
+      <Layout activeMenu="admin">
+        <div class="max-w-2xl mx-auto mt-10 bg-white rounded-lg shadow p-8">
+          <h2 class="text-xl font-bold mb-4 text-red-600">Erreur lors de la modification de la réalisation</h2>
+          <div class="mb-6 text-red-700 bg-red-100 border border-red-300 rounded p-4">
+            {erreur}
+          </div>
+          <a href="/admin/realisations" class="text-blue-600 hover:underline">Retour à la liste des réalisations</a>
+        </div>
+      </Layout>,
+      { title: 'Erreur modification réalisation - Admin PBVE' }
+    )
+  }
+})
+
+// Route de suppression d'une réalisation (GET)
+app.get('/supprimer/:id', requireAuth, async (c) => {
+  const id = c.req.param('id')
+  let erreur = ''
+  let success = false
+
+  if (c.env?.DB) {
+    try {
+      await c.env.DB.prepare('DELETE FROM realisations WHERE id=?').bind(id).run()
+      success = true
+    } catch (error) {
+      erreur = "Erreur lors de la suppression en base : " + (error.message || error.toString())
+    }
+  } else {
+    erreur = "Base de données D1 non accessible. Contactez l'administrateur."
+  }
+
+  if (success) {
+    return c.redirect('/admin/realisations?success=1')
+  } else {
+    return c.render(
+      <Layout activeMenu="admin">
+        <div class="max-w-2xl mx-auto mt-10 bg-white rounded-lg shadow p-8">
+          <h2 class="text-xl font-bold mb-4 text-red-600">Erreur lors de la suppression de la réalisation</h2>
+          <div class="mb-6 text-red-700 bg-red-100 border border-red-300 rounded p-4">
+            {erreur}
+          </div>
+          <a href="/admin/realisations" class="text-blue-600 hover:underline">Retour à la liste des réalisations</a>
+        </div>
+      </Layout>,
+      { title: 'Erreur suppression réalisation - Admin PBVE' }
+    )
+  }
 })
 
 // Route de déconnexion

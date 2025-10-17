@@ -61,7 +61,7 @@ app.get('/', (c) => {
 
                 <!-- Lien Admin bien visible -->
                 <div class="flex items-center space-x-4">
-                    <a href="/auth/login" class="bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors">
+                    <a href="/admin/realisations/login" class="bg-red-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors">
                         <i class="fas fa-key mr-1"></i> Admin
                     </a>
                     
@@ -95,7 +95,7 @@ app.get('/', (c) => {
                     <a href="/contact" class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600">
                         <i class="fas fa-envelope mr-2"></i> Contact
                     </a>
-                    <a href="/auth/login" class="block px-3 py-2 text-base font-medium bg-red-600 text-white rounded-md">
+                    <a href="/admin/realisations/login" class="block px-3 py-2 text-base font-medium bg-red-600 text-white rounded-md">
                         <i class="fas fa-key mr-2"></i> Administration
                     </a>
                 </div>
@@ -393,7 +393,7 @@ app.get('/', (c) => {
                             Connectez-vous à l'espace administrateur pour téléverser et gérer vos photos.
                         </p>
                         <a 
-                            href="/auth/login"
+                            href="/admin/realisations/login"
                             class="inline-flex items-center bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
                         >
                             <i class="fas fa-key mr-2"></i>

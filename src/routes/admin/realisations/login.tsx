@@ -1,4 +1,6 @@
-import { Layout } from '../components/Layout'
+import { Layout } from '../../../components/Layout'
+
+const app = (new Function()); // If you use Hono/Hono JSX, instantiate your router as needed
 
 export default (c) => {
   return c.render(
@@ -11,7 +13,7 @@ export default (c) => {
         />
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
           <h2 class="text-2xl font-bold text-center mb-6">Connexion Administrateur</h2>
-          <form method="POST" action="/auth/login" class="space-y-6">
+          <form method="POST" action="/admin/realisations/login" class="space-y-6">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">
                 <i class="fas fa-envelope mr-2 text-gray-400"></i>
@@ -85,6 +87,29 @@ export default (c) => {
               Retour accueil
             </a>
           </div>
+        </div>
+      </div>
+    </Layout>
+  )
+}
+
+// Traitement de la connexion (optionnel, à adapter pour serveur)
+export const post = async (c) => {
+  const { email, password } = await c.req.parseBody()
+  if (email === 'admin@pourbienvivreensemble.fr' && password === 'admin123') {
+    // Set cookie, session, etc.
+    return c.redirect('/admin/galerie-fonctionnelle')
+  }
+  // Retourne un message d'erreur si besoin
+  return c.render(
+    <Layout activeMenu="">
+      <div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
+          <h2 class="text-2xl font-bold text-center mb-6">Connexion Administrateur</h2>
+          <div class="mb-4 p-3 bg-red-100 border border-red-200 rounded text-red-700 text-sm text-center">
+            Identifiants incorrects. Veuillez réessayer.
+          </div>
+          {/* ...formulaire identique au dessus */}
         </div>
       </div>
     </Layout>

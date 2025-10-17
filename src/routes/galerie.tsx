@@ -418,7 +418,7 @@ app.get('/', (c) => {
                   Connectez-vous à l'espace administrateur pour téléverser vos images.
                 </p>
                 <a 
-                  href="/auth/login"
+                  href="/admin/realisations/login"
                   className="inline-flex items-center bg-indigo-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors"
                 >
                   <i className="fas fa-key mr-2"></i>
