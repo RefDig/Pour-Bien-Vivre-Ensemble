@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite",
     "dev:sandbox": "wrangler pages dev dist --d1=pbve-realisations --local --ip 0.0.0.0 --port 3000",
-    "build:css": "tailwindcss -i ./src/index.css -o ./public/static/style.css --minify",
+    "build:css": "tailwindcss -i ./src/index.css -o ./dist/static/style.css --minify",
     "build": "vite build && npm run build:css",
     "preview": "wrangler pages dev dist",
     "deploy": "npm run build && wrangler pages deploy",

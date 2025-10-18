@@ -11,9 +11,6 @@ export function Layout({ children, activeMenu = 'home' }: { children: any; activ
 
   return (
     <>
-      {/* Ajout du lien Tailwind CSS */}
-      <link rel="stylesheet" href="/static/style.css" />
-
       {/* Header */}
       <header class="bg-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,7 +26,7 @@ export function Layout({ children, activeMenu = 'home' }: { children: any; activ
               </div>
               <div class="hidden md:block">
                 <h1 class="text-xl font-bold pbve-gradient-text">Pour Bien Vivre Ensemble</h1>
-                <p class="text-sm font-medium" style="color: #8B4513;">Association Lille Sud</p>
+                <p class="text-sm font-medium" style={{ color: "#8B4513" }}>Association Lille Sud</p>
               </div>
             </div>
 

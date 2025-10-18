@@ -37,14 +37,11 @@ export const renderer = jsxRenderer(({ children, title }) => {
         <link rel="manifest" href="/static/manifest.json" />
         
         {/* Styles */}
-        <script src="https://cdn.tailwindcss.com"></script>
         <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet" />
         <link href="/static/style.css" rel="stylesheet" />
       </head>
       <body className="bg-gray-50 font-sans">
         {children}
-        {/* Si tu as besoin d'un JS global supplémentaire, garde-le ici : */}
-        {/* <script src="/static/app.js"></script> */}
       </body>
     </html>
   )
