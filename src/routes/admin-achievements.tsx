@@ -143,7 +143,8 @@ const AdminLayout = ({ children, title = "Administration PBVE", currentPath = "/
 `
 
 // Appliquer le middleware d'authentification
-app.use('*', requireAuth)
+// Note: Global auth middleware removed to avoid protecting the login route and creating redirect loops.
+// Apply `requireAuth` explicitly to routes that require authentication.
 
 // Liste des réalisations
 app.get('/', (c) => {

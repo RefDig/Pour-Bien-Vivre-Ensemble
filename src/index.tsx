@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { renderer } from './renderer'
 import { Layout } from './components/Layout'
+import './index.css';
 import authRoutes from './routes/auth'
 import adminRoutes from './routes/admin'
 import adminGalerieRoutes from './routes/admin-galerie-simple'

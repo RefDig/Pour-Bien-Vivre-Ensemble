@@ -1,3 +1,4 @@
+
 name = "pour-bien-vivre-ensemble"
 compatibility_date = "2023-10-14"
 
@@ -8,3 +9,8 @@ id = "42da596772d84aa3bbf313755fca2fde"
 [[kv_namespaces]]
 binding = "REALISATIONS_DATA"
 id = "66a3c6babc1d4867bd97f5d90b31a454"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "pbve-realisations"
+database_id = "4fb42003-4d13-448f-8ca6-a7a5a06e4e0f"

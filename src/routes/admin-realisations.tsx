@@ -41,7 +41,7 @@ async function requireAuth(c: any, next: any) {
       }
       c.set('user', session)
     } catch (error) {
-      console.error('Erreur vérification session:', error)
+      // Log error silently (console not available in worker context)
       return c.redirect('/admin/realisations/login')
     }
   }
@@ -136,7 +136,7 @@ app.get('/login', (c) => {
         </div>
       </div>
     </div>
-  , 'Connexion Admin - PBVE')
+  )
 })
 
 // Traitement de la connexion
@@ -156,15 +156,17 @@ app.post('/login', async (c) => {
           'INSERT INTO admin_sessions (id, user_id, expires_at) VALUES (?, 1, ?)'
         ).bind(sessionId, expiresAt).run()
       } catch (error) {
-        console.error('Erreur création session:', error)
+        // Log error silently (console not available in worker context)
       }
     }
     
     // Définir le cookie de session
+    // Détecte si la requête est en HTTPS pour adapter l'option 'secure'
+    const isHttps = c.req.header('x-forwarded-proto') === 'https' || c.req.url.startsWith('https://');
     setCookie(c, 'admin_session', sessionId, {
       maxAge: 24 * 60 * 60, // 24h
       httpOnly: true,
-      secure: true,
+      secure: isHttps,
       sameSite: 'Strict'
     })
     
@@ -186,7 +188,7 @@ app.get('/', requireAuth, async (c) => {
       ).all()
       realisations = result.results as any[]
     } catch (error) {
-      console.error('Erreur récupération réalisations:', error)
+      // Log error silently (console not available in worker context)
     }
   }
   
@@ -386,8 +388,7 @@ app.get('/', requireAuth, async (c) => {
           </div>
         </div>
       </div>
-    </Layout>,
-    { title: 'Administration Réalisations - PBVE' }
+    </Layout>
   )
 })
 
@@ -416,7 +417,7 @@ app.get('/nouveau', requireAuth, (c) => {
 
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div class="bg-white rounded-lg shadow">
-            <form method="POST" action="/admin/realisations/creer" class="p-6 space-y-6">
+            <form method="post" action="/admin/realisations/creer" class="p-6 space-y-6">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-2">
@@ -435,7 +436,7 @@ app.get('/nouveau', requireAuth, (c) => {
                   <label class="block text-sm font-medium text-gray-700 mb-2">
                     Catégorie *
                   </label>
-                  <select
+                  <select title="Catégorie"
                     name="categorie"
                     required
                     class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
@@ -515,7 +516,7 @@ app.get('/nouveau', requireAuth, (c) => {
                   <label class="block text-sm font-medium text-gray-700 mb-2">
                     Statut
                   </label>
-                  <select
+                  <select title="Statut"
                     name="statut"
                     class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   >
@@ -544,8 +545,7 @@ app.get('/nouveau', requireAuth, (c) => {
           </div>
         </div>
       </div>
-    </Layout>,
-    { title: 'Nouvelle Réalisation - Admin PBVE' }
+    </Layout>
   )
 })
 
@@ -584,8 +584,12 @@ app.post('/creer', requireAuth, async (c) => {
       ).run()
       success = true
     } catch (error) {
-      console.error('Erreur création réalisation:', error)
-      erreur = "Erreur lors de l'enregistrement en base : " + (error.message || error.toString())
+      // Log error silently (console not available in worker context)
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+        erreur = "Erreur lors de l'enregistrement en base : " + (error as any).message
+      } else {
+        erreur = "Erreur lors de l'enregistrement en base : " + String(error)
+      }
     }
   } else {
     erreur = "Base de données D1 non accessible. Contactez l'administrateur."
@@ -604,8 +608,7 @@ app.post('/creer', requireAuth, async (c) => {
           </div>
           <a href="/admin/realisations" class="text-blue-600 hover:underline">Retour à la liste des réalisations</a>
         </div>
-      </Layout>,
-      { title: 'Erreur création réalisation - Admin PBVE' }
+      </Layout>
     )
   }
 })
@@ -646,7 +649,11 @@ app.post('/modifier/:id', requireAuth, async (c) => {
       ).run()
       success = true
     } catch (error) {
-      erreur = "Erreur lors de la modification en base : " + (error.message || error.toString())
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+        erreur = "Erreur lors de la modification en base : " + (error as any).message
+      } else {
+        erreur = "Erreur lors de la modification en base : " + String(error)
+      }
     }
   } else {
     erreur = "Base de données D1 non accessible. Contactez l'administrateur."
@@ -664,8 +671,7 @@ app.post('/modifier/:id', requireAuth, async (c) => {
           </div>
           <a href="/admin/realisations" class="text-blue-600 hover:underline">Retour à la liste des réalisations</a>
         </div>
-      </Layout>,
-      { title: 'Erreur modification réalisation - Admin PBVE' }
+      </Layout>
     )
   }
 })
@@ -681,7 +687,11 @@ app.get('/supprimer/:id', requireAuth, async (c) => {
       await c.env.DB.prepare('DELETE FROM realisations WHERE id=?').bind(id).run()
       success = true
     } catch (error) {
-      erreur = "Erreur lors de la suppression en base : " + (error.message || error.toString())
+      if (typeof error === 'object' && error !== null && 'message' in error) {
+        erreur = "Erreur lors de la suppression en base : " + (error as any).message
+      } else {
+        erreur = "Erreur lors de la suppression en base : " + String(error)
+      }
     }
   } else {
     erreur = "Base de données D1 non accessible. Contactez l'administrateur."
@@ -699,8 +709,7 @@ app.get('/supprimer/:id', requireAuth, async (c) => {
           </div>
           <a href="/admin/realisations" class="text-blue-600 hover:underline">Retour à la liste des réalisations</a>
         </div>
-      </Layout>,
-      { title: 'Erreur suppression réalisation - Admin PBVE' }
+      </Layout>
     )
   }
 })

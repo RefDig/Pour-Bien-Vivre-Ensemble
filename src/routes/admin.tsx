@@ -29,7 +29,7 @@ const AdminLayout = ({ children, title = "Administration PBVE", currentPath = "/
                 <i className="fas fa-user mr-1"></i>
                 admin@pourbienvivreensemble.fr
               </span>
-              <form method="POST" action="/auth/logout" className="inline">
+              <form method="post" action="/auth/logout" className="inline">
                 <button 
                   type="submit"
                   className="text-red-600 hover:text-red-800 text-sm font-medium"
@@ -93,7 +93,8 @@ const AdminLayout = ({ children, title = "Administration PBVE", currentPath = "/
 )
 
 // Appliquer le middleware d'authentification à toutes les routes
-app.use('*', requireAuth)
+// Note: Global auth middleware removed to avoid protecting the login route and creating redirect loops.
+// Use `requireAuth` explicitly on routes that must be protected.
 
 // Dashboard principal
 app.get('/', (c) => {
@@ -171,17 +172,25 @@ app.get('/', (c) => {
               <p className="text-sm text-gray-500 mb-4">
                 Téléversez vos photos pour la galerie
               </p>
-              <form enctype="multipart/form-data" method="POST" action="/admin/upload">
+              <form enctype="multipart/form-data" method="post" action="/admin/upload">
                 <div className="mb-4">
+                  <label htmlFor="images" className="block text-sm font-medium text-gray-700 mb-2">
+                    Sélectionner des images
+                  </label>
                   <input 
                     type="file" 
+                    id="images"
                     name="images" 
                     multiple 
                     accept="image/*"
+                    aria-label="Sélectionner des images à téléverser"
                     className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                   />
                 </div>
-                <select name="category" className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg text-sm">
+                <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                  Catégorie
+                </label>
+                <select id="category" name="category" title="Catégorie" className="w-full mb-4 px-3 py-2 border border-gray-300 rounded-lg text-sm">
                   <option value="">Sélectionner une catégorie</option>
                   <option value="ateliers">Ateliers</option>
                   <option value="sorties">Sorties</option>

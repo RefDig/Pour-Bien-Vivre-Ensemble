@@ -6,78 +6,85 @@ const app = new Hono()
 app.get('/', (c) => {
   return c.html(`
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Galerie - PBVE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-4xl">
-        <!-- Header -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h1 class="text-3xl font-bold text-blue-600">
-                        <i class="fas fa-camera mr-3"></i>
-                        Administration Galerie
-                    </h1>
-                    <p class="text-gray-600">Ajoutez et gérez vos photos facilement</p>
-                </div>
-                <div class="flex space-x-3">
-                    <a href="/admin/transfert" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors">
-                        <i class="fas fa-sync mr-2"></i>
-                        Récupérer vos photos
-                    </a>
-                    <a href="/galerie" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors">
-                        <i class="fas fa-images mr-2"></i>
-                        Voir la galerie
-                    </a>
-                    <a href="/" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
-                        <i class="fas fa-home mr-2"></i>
-                        Accueil
-                    </a>
-                </div>
-            </div>
-        </div>
+    <script>
+        // Données
+        let photos = [];
+        let categories = [];
 
-        <!-- Zone d'upload -->
-        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 class="text-xl font-bold text-gray-800 mb-6">
-                <i class="fas fa-cloud-upload-alt mr-2"></i>
-                Ajouter une Photo
-            </h2>
-            
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Upload -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Sélectionner une photo</label>
-                    <input type="file" id="photoInput" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                    
-                    <div id="preview" class="mt-4 hidden">
-                        <img id="previewImage" class="w-full h-40 object-cover rounded-lg border-2 border-gray-200">
-                    </div>
-                </div>
-                
-                <!-- Informations -->
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Titre de la photo</label>
-                        <input type="text" id="photoTitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ex: Atelier cuisine">
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-                        <textarea id="photoDescription" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 h-20" placeholder="Décrivez cette photo..."></textarea>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
-                        <select id="photoCategory" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
-                            <option value="ateliers">Ateliers</option>
-                            <option value="sorties">Sorties</option>
+        // Charger les données depuis l'API
+        async function chargerDonnees() {
+            // ...existing code...
+        }
+
+        // Prévisualiser l'image sélectionnée
+        document.getElementById('photoInput').addEventListener('change', function(e) {
+            // ...existing code...
+        });
+
+        // Ajouter une photo
+        async function ajouterPhoto() {
+            // ...existing code...
+        }
+
+        // Ajouter une catégorie
+        function ajouterCategorie() {
+            // ...existing code...
+        }
+
+        // Supprimer une catégorie
+        function supprimerCategorie(nom) {
+            // ...existing code...
+        }
+
+        // Supprimer une photo
+        function supprimerPhoto(id) {
+            // ...existing code...
+        }
+
+        // Vider toute la galerie
+        function viderGalerie() {
+            // ...existing code...
+        }
+
+        // Afficher les photos
+        function afficherPhotos() {
+            // ...existing code...
+        }
+
+        // Afficher les catégories
+        function afficherCategories() {
+            // ...existing code...
+        }
+
+        // Mettre à jour le sélecteur de catégories
+        function mettreAJourSelecteur() {
+            // ...existing code...
+        }
+
+        // Sauvegarder dans localStorage
+        function sauvegarderPhotos() {
+            // ...existing code...
+        }
+
+        function sauvegarderCategories() {
+            // ...existing code...
+        }
+
+        // Afficher un message temporaire
+        function afficherMessage(texte, type = 'info') {
+            // ...existing code...
+        }
+
+        // Initialiser au chargement
+        document.addEventListener('DOMContentLoaded', chargerDonnees);
+
+        // Correction CTO : rendre les fonctions globales pour les boutons
+        window.ajouterPhoto = ajouterPhoto;
+        window.ajouterCategorie = ajouterCategorie;
+        window.supprimerPhoto = supprimerPhoto;
+        window.supprimerCategorie = supprimerCategorie;
+        window.viderGalerie = viderGalerie;
+    </script>
                             <option value="fetes">Fêtes</option>
                             <option value="portraits">Portraits</option>
                             <option value="activites">Activités</option>
