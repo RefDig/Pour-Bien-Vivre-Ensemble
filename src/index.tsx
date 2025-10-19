@@ -29,26 +29,26 @@ app.get('/auth/*', (c) => c.redirect('/admin/realisations/login', 302))
 app.use(renderer)
 
 // Intégration des routes
-app.route('/auth', authRoutes)
-app.route('/admin', adminRoutes)
-app.route('/admin/galerie-simple', adminGalerieRoutes) // Interface simple galerie qui fonctionne
-app.route('/admin/galerie-fonctionnelle', adminGalerieFonctionnelleRoutes) // Ancienne interface
-app.route('/admin/galerie', adminGalerieCorrigeeRoutes) // NOUVELLE interface CORRIGÉE qui FONCTIONNE
-app.route('/admin/galerie-corrigee', adminGalerieCorrigeeRoutes) // ALIAS pour test direct
-app.route('/admin/galerie-production', adminGalerieProductionRoutes) // INTERFACE PRODUCTION avec API KV
-app.route('/login', loginSimpleRoutes) // Page de connexion qui fonctionne
-app.route('/admin/achievements', adminAchievementsRoutes) // Admin des réalisations
-app.route('/realisations', achievementsRoutes) // Ancienne route (à conserver)
-app.route('/nos-realisations', realisationsRoutes) // Nouvelle page réalisations
-app.route('/admin/realisations', adminRealisationsRoutes) // Admin des réalisations (ancien)
-app.route('/admin/realisations-production', adminRealisationsProductionRoutes) // ADMIN PRODUCTION réalisations avec API KV
-app.route('/api/galerie', apiGalerieRoutes) // API pour gérer les photos
-app.route('/api/galerie-production', apiGalerieProductionRoutes) // API PRODUCTION galerie avec KV storage
-app.route('/api/realisations-production', apiRealisationsProductionRoutes) // API PRODUCTION réalisations avec KV storage
-app.route('/admin/transfert', transfertDonneesRoutes) // Utilitaire de récupération des photos
-app.route('/galerie-old', galerieSimpleRoutes) // Ancienne galerie statique
-app.route('/galerie-old2', galerieDynamiqueRoutes) // Ancienne galerie dynamique
-app.route('/galerie', galerieCorrigeeRoutes) // NOUVELLE galerie CORRIGÉE qui fonctionne
+if (authRoutes) app.route('/auth', authRoutes)
+if (adminRoutes) app.route('/admin', adminRoutes)
+if (adminGalerieRoutes) app.route('/admin/galerie-simple', adminGalerieRoutes) // Interface simple galerie qui fonctionne
+if (adminGalerieFonctionnelleRoutes) app.route('/admin/galerie-fonctionnelle', adminGalerieFonctionnelleRoutes) // Ancienne interface
+if (adminGalerieCorrigeeRoutes) app.route('/admin/galerie', adminGalerieCorrigeeRoutes) // NOUVELLE interface CORRIGÉE qui FONCTIONNE
+if (adminGalerieCorrigeeRoutes) app.route('/admin/galerie-corrigee', adminGalerieCorrigeeRoutes) // ALIAS pour test direct
+if (adminGalerieProductionRoutes) app.route('/admin/galerie-production', adminGalerieProductionRoutes) // INTERFACE PRODUCTION avec API KV
+if (loginSimpleRoutes) app.route('/login', loginSimpleRoutes) // Page de connexion qui fonctionne
+if (adminAchievementsRoutes) app.route('/admin/achievements', adminAchievementsRoutes) // Admin des réalisations
+if (achievementsRoutes) app.route('/realisations', achievementsRoutes) // Ancienne route (à conserver)
+if (realisationsRoutes) app.route('/nos-realisations', realisationsRoutes) // Nouvelle page réalisations
+if (adminRealisationsRoutes) app.route('/admin/realisations', adminRealisationsRoutes) // Admin des réalisations (ancien)
+if (adminRealisationsProductionRoutes) app.route('/admin/realisations-production', adminRealisationsProductionRoutes) // ADMIN PRODUCTION réalisations avec API KV
+if (apiGalerieRoutes) app.route('/api/galerie', apiGalerieRoutes) // API pour gérer les photos
+if (apiGalerieProductionRoutes) app.route('/api/galerie-production', apiGalerieProductionRoutes) // API PRODUCTION galerie avec KV storage
+if (apiRealisationsProductionRoutes) app.route('/api/realisations-production', apiRealisationsProductionRoutes) // API PRODUCTION réalisations avec KV storage
+if (transfertDonneesRoutes) app.route('/admin/transfert', transfertDonneesRoutes) // Utilitaire de récupération des photos
+if (galerieSimpleRoutes) app.route('/galerie-old', galerieSimpleRoutes) // Ancienne galerie statique
+if (galerieDynamiqueRoutes) app.route('/galerie-old2', galerieDynamiqueRoutes) // Ancienne galerie dynamique
+if (galerieCorrigeeRoutes) app.route('/galerie', galerieCorrigeeRoutes) // NOUVELLE galerie CORRIGÉE qui fonctionne
 
 app.get('/', (c) => {
   return c.render(

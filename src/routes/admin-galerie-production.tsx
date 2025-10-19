@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
 type Bindings = {
-  GALERIE_DATA: KVNamespace;
+  GALERIE_DATA: any;
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -283,7 +283,7 @@ app.get('/', (c) => {
         function mettreAJourInterface() {
             mettreAJourStatistiques();
             mettreAJourCategories();
-            afficherPhotos();
+              afficherPhotos((photos ?? []));
         }
 
         // Statistiques
@@ -322,7 +322,7 @@ app.get('/', (c) => {
             const grid = document.getElementById('photosGrid');
             const emptyMessage = document.getElementById('emptyMessage');
             
-            if (photos.length === 0) {
+                if ((photos ?? []).length === 0) {
                 grid.classList.add('hidden');
                 emptyMessage.classList.remove('hidden');
                 emptyMessage.innerHTML = \`
@@ -336,7 +336,7 @@ app.get('/', (c) => {
             grid.classList.remove('hidden');
             emptyMessage.classList.add('hidden');
             
-            grid.innerHTML = photos.map(photo => \`
+                grid.innerHTML = (photos ?? []).map(photo => \`
                 <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                     <div class="relative">
                         <img src="\${photo.src}" alt="\${photo.titre}" class="w-full h-32 object-cover">

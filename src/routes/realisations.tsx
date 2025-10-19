@@ -169,7 +169,7 @@ app.get('/', async (c) => {
       <section class="py-8 bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div class="flex flex-wrap justify-center gap-4">
-            {categories.map(cat => (
+            {(categories ?? []).map(cat => (
               <a
                 href={`/realisations${cat.id !== 'all' ? '?categorie=' + cat.id : ''}`}
                 class={`flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all ${
@@ -277,7 +277,7 @@ app.get('/', async (c) => {
           </div>
 
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {autresRealisations.map(realisation => (
+            {(autresRealisations ?? []).map(realisation => (
               <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group">
                 <div class="p-6">
                   <div class="flex items-center justify-between mb-4">

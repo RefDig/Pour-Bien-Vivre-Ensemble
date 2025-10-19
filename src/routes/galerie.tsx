@@ -156,15 +156,15 @@ app.get('/', (c) => {
   
   // Ajouter des espaces réservés pour chaque catégorie
   const allPhotos = [
-    ...mockPhotos,
-    ...galleryCategories.flatMap(cat => createPlaceholderSpaces(cat.id, 6))
+  ...((mockPhotos ?? [])),
+  ...((galleryCategories ?? []).flatMap(cat => createPlaceholderSpaces(cat.id, 6)))
   ]
   
   const filteredPhotos = selectedCategory 
-    ? allPhotos.filter(photo => photo.category === selectedCategory)
-    : allPhotos
+  ? (allPhotos ?? []).filter(photo => photo.category === selectedCategory)
+  : (allPhotos ?? [])
 
-  const featuredPhoto = mockPhotos.find(photo => photo.id === 3) // Marie Cappello en vedette
+  const featuredPhoto = (mockPhotos ?? []).find(photo => photo.id === 3) // Marie Cappello en vedette
 
   return c.html(
     <Layout title="Galerie Photo - Pour Bien Vivre Ensemble" currentPath="/galerie">
@@ -182,7 +182,7 @@ app.get('/', (c) => {
               </p>
               <div className="flex items-center justify-center text-lg">
                 <i className="fas fa-images mr-2"></i>
-                <span>{allPhotos.filter(p => !p.isPlaceholder).length} photos • {galleryCategories.length} catégories</span>
+                <span>{(allPhotos ?? []).filter(p => typeof p.id === 'number').length} photos • {(galleryCategories ?? []).length} catégories</span>
               </div>
             </div>
           </div>
@@ -204,11 +204,11 @@ app.get('/', (c) => {
                 <i className="fas fa-th-large mr-2"></i>
                 Toutes
                 <span className="ml-2 bg-white bg-opacity-20 text-xs px-2 py-1 rounded-full">
-                  {allPhotos.filter(p => !p.isPlaceholder).length}
+                  {(allPhotos ?? []).filter(p => typeof p.id === 'number').length}
                 </span>
               </a>
-              {galleryCategories.map(category => {
-                const count = mockPhotos.filter(p => p.category === category.id).length
+              {(galleryCategories ?? []).map(category => {
+                const count = (mockPhotos ?? []).filter(p => p.category === category.id).length
                 return (
                   <a 
                     key={category.id}
@@ -236,10 +236,10 @@ app.get('/', (c) => {
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
               >
                 <option value="/galerie" selected={!selectedCategory}>
-                  📸 Toutes les photos ({allPhotos.filter(p => !p.isPlaceholder).length})
+                  📸 Toutes les photos ({(allPhotos ?? []).filter(p => typeof p.id === 'number').length})
                 </option>
-                {galleryCategories.map(category => {
-                  const count = mockPhotos.filter(p => p.category === category.id).length
+                {(galleryCategories ?? []).map(category => {
+                  const count = (mockPhotos ?? []).filter(p => p.category === category.id).length
                   return (
                     <option 
                       key={category.id}
@@ -328,20 +328,20 @@ app.get('/', (c) => {
                 }
               </h2>
               <p className="text-gray-600">
-                {filteredPhotos.filter(p => !p.isPlaceholder).length} photos disponibles
-                {filteredPhotos.filter(p => p.isPlaceholder).length > 0 && 
-                  ` • ${filteredPhotos.filter(p => p.isPlaceholder).length} emplacements réservés`
+                {(filteredPhotos ?? []).filter(p => typeof p.id === 'number').length} photos disponibles
+                {(filteredPhotos ?? []).filter(p => typeof p.id === 'string' && p.id.startsWith('placeholder_')).length > 0 && 
+                  ` • ${(filteredPhotos ?? []).filter(p => typeof p.id === 'string' && p.id.startsWith('placeholder_')).length} emplacements réservés`
                 }
               </p>
             </div>
 
             {/* Grille responsive */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-              {filteredPhotos.map((photo, index) => (
+              {(filteredPhotos ?? []).map((photo, index) => (
                 <div 
                   key={photo.id}
                   className={`group cursor-pointer transform transition-all duration-300 hover:scale-105 ${
-                    photo.isPlaceholder 
+                    typeof photo.id === 'string' && photo.id.startsWith('placeholder_')
                       ? 'opacity-50 hover:opacity-75' 
                       : 'hover:shadow-xl'
                   }`}
@@ -349,10 +349,10 @@ app.get('/', (c) => {
                   <div className="bg-white rounded-xl overflow-hidden shadow-lg">
                     <div className="relative aspect-square overflow-hidden">
                       <img 
-                        src={photo.isPlaceholder ? '/static/placeholder-upload.svg' : photo.imageUrl}
+                        src={typeof photo.id === 'string' && photo.id.startsWith('placeholder_') ? '/static/placeholder-upload.svg' : photo.imageUrl}
                         alt={photo.title}
                         className={`w-full h-full object-cover transition-transform duration-500 ${
-                          photo.isPlaceholder 
+                          typeof photo.id === 'string' && photo.id.startsWith('placeholder_')
                             ? 'filter grayscale' 
                             : 'group-hover:scale-110'
                         }`}

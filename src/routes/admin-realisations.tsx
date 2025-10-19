@@ -4,7 +4,7 @@ import { Layout } from '../components/Layout'
 import { getCookie, setCookie } from 'hono/cookie'
 
 type Bindings = {
-  DB?: D1Database
+  DB?: any
 }
 
 type Realisation = {
@@ -191,10 +191,10 @@ app.get('/', requireAuth, async (c) => {
   }
   
   const stats = {
-    total: realisations.length,
-    publies: realisations.filter(r => r.statut === 'publie').length,
-    brouillons: realisations.filter(r => r.statut === 'brouillon').length,
-    vedette: realisations.filter(r => r.en_vedette).length
+  total: (realisations ?? []).length,
+  publies: (realisations ?? []).filter(r => r.statut === 'publie').length,
+  brouillons: (realisations ?? []).filter(r => r.statut === 'brouillon').length,
+  vedette: (realisations ?? []).filter(r => r.en_vedette).length
   }
 
   return c.render(
@@ -323,7 +323,7 @@ app.get('/', requireAuth, async (c) => {
                   </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                  {realisations.map(realisation => (
+                  {(realisations ?? []).map(realisation => (
                     <tr class="hover:bg-gray-50">
                       <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">

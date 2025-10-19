@@ -549,7 +549,7 @@ app.get('/', (c) => {
             // Trier par date (plus récent en premier)
             photosAffichees.sort((a, b) => new Date(b.dateAjoutISO || b.dateAjout) - new Date(a.dateAjoutISO || a.dateAjout));
             
-            grid.innerHTML = photosAffichees.map(photo => \`
+            grid.innerHTML = (photosAffichees ?? []).map(photo => \`
                 <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                     <div class="relative">
                         <img src="\${photo.src}" alt="\${photo.titre}" class="w-full h-32 object-cover">

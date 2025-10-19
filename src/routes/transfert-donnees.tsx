@@ -105,37 +105,35 @@ app.get('/', (c) => {
             updateStatus(\`Données trouvées: \${photosLocales.length} photos, \${categoriesLocales.length} catégories\`, 'success');
             
             resultsDiv.innerHTML = \`
-                <div class="space-y-4">
-                    <div class="p-4 bg-green-50 rounded-lg">
-                        <h3 class="font-semibold text-green-700 mb-2">
-                            <i class="fas fa-images mr-2"></i>
-                            Photos trouvées (\${photosLocales.length})
-                        </h3>
-                        <div class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-40 overflow-y-auto">
-                            \${photosLocales.map(photo => \`
-                                <div class="text-xs bg-white p-2 rounded shadow">
-                                    <div class="font-medium truncate">\${photo.titre}</div>
-                                    <div class="text-gray-500 capitalize">\${photo.categorie}</div>
-                                </div>
-                            \`).join('')}
-                        </div>
-                    </div>
-                    
-                    \${categoriesLocales.length > 0 ? \`
-                    <div class="p-4 bg-blue-50 rounded-lg">
-                        <h3 class="font-semibold text-blue-700 mb-2">
-                            <i class="fas fa-tags mr-2"></i>
-                            Catégories (\${categoriesLocales.length})
-                        </h3>
-                        <div class="flex flex-wrap gap-2">
-                            \${categoriesLocales.map(cat => \`
-                                <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs capitalize">\${cat}</span>
-                            \`).join('')}
-                        </div>
-                    </div>
-                    \` : ''}
-                </div>
-            \`;
+                <div class='space-y-4'>"
+                    + "<div class='p-4 bg-green-50 rounded-lg'>"
+                        + "<h3 class='font-semibold text-green-700 mb-2'>"
+                            + "<i class='fas fa-images mr-2'></i>"
+                            + "Photos trouvées (" + photosLocales.length + ")"
+                        + "</h3>"
+                        + "<div class='grid grid-cols-2 md:grid-cols-3 gap-2 max-h-40 overflow-y-auto'>"
+                            + (photosLocales ?? []).map(function(photo) {
+                                return "<div class='text-xs bg-white p-2 rounded shadow'>"
+                                    + "<div class='font-medium truncate'>" + photo.titre + "</div>"
+                                    + "<div class='text-gray-500 capitalize'>" + photo.categorie + "</div>"
+                                + "</div>";
+                            }).join('')
+                        + "</div>"
+                    + "</div>"
+                    + (categoriesLocales.length > 0 ? (
+                        "<div class='p-4 bg-blue-50 rounded-lg'>"
+                            + "<h3 class='font-semibold text-blue-700 mb-2'>"
+                                + "<i class='fas fa-tags mr-2'></i>"
+                                + "Catégories (" + categoriesLocales.length + ")"
+                            + "</h3>"
+                            + "<div class='flex flex-wrap gap-2'>"
+                                + (categoriesLocales ?? []).map(function(cat) {
+                                    return "<span class='bg-blue-100 text-blue-700 px-2 py-1 rounded-full text-xs capitalize'>" + cat + "</span>";
+                                }).join('')
+                            + "</div>"
+                        + "</div>"
+                    ) : "")
+                + "</div>";
             
             document.getElementById('transferBtn').disabled = false;
         }

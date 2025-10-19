@@ -435,7 +435,7 @@ app.get('/', (c) => {
             
             document.getElementById('featuredSection').style.display = 'block';
             
-            container.innerHTML = photosRecentes.map(photo => \`
+            container.innerHTML = (photosRecentes ?? []).map(photo => \`
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-6 cursor-pointer" onclick="openLightbox('\${photo.src}', '\${photo.titre}', '\${photo.description}', '\${photo.categorie}')">
                     <div class="md:flex">
                         <div class="md:w-1/2">
@@ -488,7 +488,7 @@ app.get('/', (c) => {
             grid.style.display = 'grid';
             emptyGallery.classList.add('hidden');
             
-            grid.innerHTML = photosAffichees.map(photo => \`
+            grid.innerHTML = (photosAffichees ?? []).map(photo => \`
                 <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer" onclick="openLightbox('\${photo.src}', '\${photo.titre}', '\${photo.description}', '\${photo.categorie}')">
                     <div class="relative">
                         <img 

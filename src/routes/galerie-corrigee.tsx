@@ -434,7 +434,7 @@ app.get('/', (c) => {
             const emptyGallery = document.getElementById('emptyGallery');
             const visiblePhotos = document.getElementById('visiblePhotos');
             
-            let photosAffichees = category === 'all' ? photos : photos.filter(photo => photo.categorie === category);
+                let photosAffichees = category === 'all' ? (photos ?? []) : (photos ?? []).filter(photo => photo.categorie === category);
             
             visiblePhotos.textContent = photosAffichees.length;
             
@@ -460,7 +460,7 @@ app.get('/', (c) => {
             grid.style.display = 'grid';
             emptyGallery.classList.add('hidden');
             
-            grid.innerHTML = photosAffichees.map(photo => \`
+                    grid.innerHTML = (photosAffichees ?? []).map(photo => \`
                 <div class="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow cursor-pointer transform hover:scale-105" onclick="openLightbox('\${photo.src}', '\${photo.titre}', '\${photo.description}', '\${photo.categorie}')">
                     <div class="relative">
                         <img 

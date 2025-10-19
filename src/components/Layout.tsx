@@ -32,7 +32,7 @@ export function Layout({ children, activeMenu = 'home' }: { children: any; activ
 
             {/* Navigation Desktop */}
             <nav class="hidden md:flex space-x-8">
-              {menuItems.map((item) => (
+              {(menuItems ?? []).map((item) => (
                 <a
                   href={item.href}
                   class={`flex items-center space-x-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -62,7 +62,7 @@ export function Layout({ children, activeMenu = 'home' }: { children: any; activ
           {/* Mobile Navigation */}
           <div id="mobile-menu" class="md:hidden hidden pb-4">
             <div class="space-y-1">
-              {menuItems.map((item) => (
+              {(menuItems ?? []).map((item) => (
                 <a
                   href={item.href}
                   class={`flex items-center space-x-3 px-3 py-2 rounded-md text-base font-medium ${

@@ -1,9 +1,12 @@
+import { Hono } from 'hono'
 import { Layout } from '../components/Layout'
 
-export default (c) => {
+const app = new Hono()
+
+app.get('/', (c) => {
   return c.render(
     <Layout activeMenu="">
-      <div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
+      <div class="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">.
         <img
           src="/static/logo-pbve-authentique.png"
           alt="Logo PBVE"
@@ -89,4 +92,6 @@ export default (c) => {
       </div>
     </Layout>
   )
-}
+})
+
+export default app

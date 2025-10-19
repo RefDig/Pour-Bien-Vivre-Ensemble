@@ -2,7 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
 type Bindings = {
-  REALISATIONS_DATA: KVNamespace;
+  REALISATIONS_DATA: any;
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -315,7 +315,7 @@ app.get('/', (c) => {
                 return new Date(b.dateCreation) - new Date(a.dateCreation);
             });
             
-            liste.innerHTML = realisationsTries.map(realisation => {
+                liste.innerHTML = (realisationsTries ?? []).map(realisation => {
                 const catInfo = categoriesIcons[realisation.categorie] || { icon: 'fas fa-file', color: 'gray' };
                 
                 return \`
@@ -336,7 +336,7 @@ app.get('/', (c) => {
                                     <span class="capitalize"><i class="fas fa-tag mr-1"></i>\${realisation.categorie}</span>
                                 </div>
                                 
-                                \${realisation.tags && realisation.tags.length > 0 ? \`
+                                    \${(realisation.tags ?? []) && realisation.tags.length > 0 ? \`
                                     <div class="flex flex-wrap gap-1 mb-2">
                                         \${realisation.tags.map(tag => \`<span class="bg-gray-100 text-gray-700 text-xs px-2 py-1 rounded">\${tag}</span>\`).join('')}
                                     </div>

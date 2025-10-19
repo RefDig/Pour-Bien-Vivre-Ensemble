@@ -346,6 +346,7 @@ app.get('/', (c) => {
             emptyMessage.classList.add('hidden');
             
             grid.innerHTML = photos.map(photo => \`
+                grid.innerHTML = (photos ?? []).map(photo => \`
                 <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                     <img src="\${photo.src}" alt="\${photo.titre}" class="w-full h-32 object-cover">
                     <div class="p-3">
@@ -370,6 +371,7 @@ app.get('/', (c) => {
         function afficherCategories() {
             const liste = document.getElementById('categoriesList');
             liste.innerHTML = categories.map(cat => \`
+                liste.innerHTML = (categories ?? []).map(cat => \`
                 <div class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
                     <span class="text-sm font-medium capitalize">\${cat}</span>
                     <button onclick="supprimerCategorie('\${cat}')" class="text-red-500 hover:text-red-700 text-sm">
@@ -383,6 +385,7 @@ app.get('/', (c) => {
         function mettreAJourSelecteur() {
             const select = document.getElementById('photoCategory');
             select.innerHTML = categories.map(cat => 
+                select.innerHTML = (categories ?? []).map(cat => 
                 \`<option value="\${cat}" class="capitalize">\${cat}</option>\`
             ).join('');
         }
