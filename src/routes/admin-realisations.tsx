@@ -187,7 +187,7 @@ app.post('/login', async (c) => {
     setCookie(c, 'admin_session', sessionId, {
       maxAge: 24 * 60 * 60, // 24h
       httpOnly: true,
-      secure: false,
+      secure: true, // Force secure for HTTPS compatibility
       sameSite: 'Lax',
       path: '/'
     })
