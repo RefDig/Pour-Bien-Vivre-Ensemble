@@ -160,14 +160,12 @@ app.post('/login', async (c) => {
       }
     }
     
-    // Définir le cookie de session
-    // Détecte si la requête est en HTTPS pour adapter l'option 'secure'
-    const isHttps = c.req.header('x-forwarded-proto') === 'https' || c.req.url.startsWith('https://');
+    // Définir le cookie de session (Cloudflare: secure=false, sameSite=Lax pour compatibilité)
     setCookie(c, 'admin_session', sessionId, {
       maxAge: 24 * 60 * 60, // 24h
       httpOnly: true,
-      secure: isHttps,
-      sameSite: 'Strict'
+      secure: false,
+      sameSite: 'Lax'
     })
     
     return c.redirect('/admin/realisations')
