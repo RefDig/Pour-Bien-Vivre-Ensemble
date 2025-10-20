@@ -28,7 +28,15 @@ app.use(renderer)
 async function requireAuth(c: any, next: any) {
   const sessionId = getCookie(c, 'admin_session')
   if (!sessionId) {
-    return c.redirect('/admin/realisations/login')
+    return c.render(
+      <div class="min-h-screen flex items-center justify-center bg-red-50">
+        <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+          <h2 class="text-xl font-bold text-red-600 mb-4">Session non trouvée</h2>
+          <p class="text-gray-700 mb-4">Le cookie de session admin n'a pas été détecté. Activez les cookies et réessayez.</p>
+          <a href="/admin/realisations/login" class="text-blue-600 hover:underline">Retour à la connexion</a>
+        </div>
+      </div>
+    )
   }
   // Vérifier la session en base (si DB disponible)
   if (c.env?.DB) {
@@ -37,12 +45,27 @@ async function requireAuth(c: any, next: any) {
         'SELECT s.*, u.email, u.nom FROM admin_sessions s JOIN admin_users u ON s.user_id = u.id WHERE s.id = ? AND s.expires_at > datetime("now")'
       ).bind(sessionId).first()
       if (!session) {
-        return c.redirect('/admin/realisations/login')
+        return c.render(
+          <div class="min-h-screen flex items-center justify-center bg-red-50">
+            <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+              <h2 class="text-xl font-bold text-red-600 mb-4">Session invalide</h2>
+              <p class="text-gray-700 mb-4">La session admin n'a pas été trouvée ou a expiré.<br/>Essayez de vous reconnecter.</p>
+              <a href="/admin/realisations/login" class="text-blue-600 hover:underline">Retour à la connexion</a>
+            </div>
+          </div>
+        )
       }
       c.set('user', session)
     } catch (error) {
-      // Log error silently (console not available in worker context)
-      return c.redirect('/admin/realisations/login')
+      return c.render(
+        <div class="min-h-screen flex items-center justify-center bg-red-50">
+          <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center">
+            <h2 class="text-xl font-bold text-red-600 mb-4">Erreur de connexion</h2>
+            <p class="text-gray-700 mb-4">Impossible de vérifier la session admin.<br/>Erreur technique côté serveur.</p>
+            <a href="/admin/realisations/login" class="text-blue-600 hover:underline">Retour à la connexion</a>
+          </div>
+        </div>
+      )
     }
   }
   await next()
