@@ -165,7 +165,8 @@ app.post('/login', async (c) => {
       maxAge: 24 * 60 * 60, // 24h
       httpOnly: true,
       secure: false,
-      sameSite: 'Lax'
+      sameSite: 'Lax',
+      path: '/'
     })
     
     return c.redirect('/admin/realisations')
