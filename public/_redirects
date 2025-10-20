@@ -1,2 +1,3 @@
 /auth/*   /admin/realisations/login   302
 /admin       /admin/realisations        302
+/*    /index.html   200
