@@ -17,10 +17,11 @@
     "db:migrate": "wrangler d1 migrations apply pbve-realisations --local",
     "db:seed": "wrangler d1 execute pbve-realisations --local --file=./migrations/0001_create_realisations.sql",
     "db:console": "wrangler d1 execute pbve-realisations --local",
-    "start": "npm run build && pm2 restart pour-bien-vivre-ensemble || pm2 start ecosystem.config.cjs"
+    "start": "node server.js"
   },
   "dependencies": {
-    "hono": "^4.9.11"
+    "hono": "^4.9.11",
+    "@hono/node-server": "^1.13.7"
   },
   "devDependencies": {
     "@hono/vite-build": "^1.2.0",

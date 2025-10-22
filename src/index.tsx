@@ -23,11 +23,10 @@ import apiRealisationsProductionRoutes from './routes/api-realisations-productio
 import transfertDonneesRoutes from './routes/transfert-donnees'
 
 
-import { serveStatic } from 'hono/cloudflare-workers'
 const app = new Hono()
 
-// Servir les fichiers statiques depuis dist/static
-app.get('/static/*', serveStatic({ root: './dist/static' }))
+// Servir les fichiers statiques - géré par server.js en production
+// app.get('/static/*', serveStatic({ root: './dist/static' }))
 
 // Redirection edge pour /auth/*
 app.get('/auth/*', (c) => c.redirect('/admin/realisations/login', 302))

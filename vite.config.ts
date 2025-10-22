@@ -1,16 +1,16 @@
 
 import { resolve } from 'path';
 import { copyFileSync } from 'fs';
-import build from '@hono/vite-build/cloudflare-pages';
+import build from '@hono/vite-build/node';
 import devServer from '@hono/vite-dev-server';
-import adapter from '@hono/vite-dev-server/cloudflare';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [
-    build(),
+    build({
+      entry: 'src/index.tsx',
+    }),
     devServer({
-      adapter,
       entry: 'src/index.tsx',
     }),
     {
@@ -28,4 +28,14 @@ export default defineConfig({
       },
     },
   ],
+  build: {
+    ssr: true,
+    rollupOptions: {
+      input: 'src/index.tsx',
+      output: {
+        dir: 'dist',
+        format: 'esm'
+      }
+    }
+  }
 });

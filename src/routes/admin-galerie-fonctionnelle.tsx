@@ -6,7 +6,56 @@ const app = new Hono()
 app.get('/', (c) => {
   return c.html(`
 <!DOCTYPE html>
-                            <option value="fetes">Fêtes</option>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Galerie - PBVE</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-6xl">
+        <!-- Header -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h1 class="text-3xl font-bold text-green-600 mb-2">
+                <i class="fas fa-cog mr-3"></i>
+                Administration Galerie PBVE
+            </h1>
+        </div>
+
+        <!-- Formulaire ajout photo -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-bold text-gray-800 mb-6">
+                <i class="fas fa-plus-circle mr-2"></i>
+                Ajouter la Photo
+            </h2>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Photo</label>
+                    <input type="file" id="photoInput" accept="image/*" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                    <div id="preview" class="mt-4 hidden">
+                        <img id="previewImage" class="w-full max-w-md rounded-lg shadow-md">
+                    </div>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Titre</label>
+                    <input type="text" id="photoTitle" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Ex: Atelier peinture">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                    <textarea id="photoDescription" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Décrivez cette photo..."></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Catégorie</label>
+                    <select id="photoCategory" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                        <option value="ateliers">Ateliers</option>
+                        <option value="sorties">Sorties</option>
+                        <option value="fetes">Fêtes</option>
                             <option value="portraits">Portraits</option>
                             <option value="activites">Activités</option>
                             <option value="evenements">Événements</option>
@@ -103,12 +152,6 @@ app.get('/', (c) => {
                 afficherMessage('Erreur lors du chargement des données', 'error');
                 
                 // Fallback vers localStorage
-                const photosStockees = localStorage.getItem('pbve_photos');
-                const categoriesStockees = localStorage.getItem('pbve_categories');
-                
-                if (photosStockees) {
-                    photos = JSON.parse(photosStockees);
-                }
                 
                 if (categoriesStockees) {
                     categories = JSON.parse(categoriesStockees);
@@ -261,60 +304,53 @@ app.get('/', (c) => {
             const grid = document.getElementById('photosGrid');
             const emptyMessage = document.getElementById('emptyMessage');
             const photoCount = document.getElementById('photoCount');
-            
             photoCount.textContent = photos.length;
-            
             if (photos.length === 0) {
                 grid.classList.add('hidden');
                 emptyMessage.classList.remove('hidden');
                 return;
             }
-            
             grid.classList.remove('hidden');
             emptyMessage.classList.add('hidden');
-            
-            grid.innerHTML = photos.map(photo => \`
-                grid.innerHTML = (photos ?? []).map(photo => \`
+            grid.innerHTML = (photos ?? []).map(photo => `
                 <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                    <img src="\${photo.src}" alt="\${photo.titre}" class="w-full h-32 object-cover">
+                    <img src="${photo.src}" alt="${photo.titre}" class="w-full h-32 object-cover">
                     <div class="p-3">
                         <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">\${photo.categorie}</span>
-                            <button onclick="supprimerPhoto(\${photo.id})" class="text-red-500 hover:text-red-700 text-sm">
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full">${photo.categorie}</span>
+                            <button onclick="supprimerPhoto(${photo.id})" class="text-red-500 hover:text-red-700 text-sm">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
-                        <h3 class="font-medium text-sm text-gray-900 mb-1">\${photo.titre}</h3>
-                        <p class="text-xs text-gray-600 mb-2">\${photo.description}</p>
+                        <h3 class="font-medium text-sm text-gray-900 mb-1">${photo.titre}</h3>
+                        <p class="text-xs text-gray-600 mb-2">${photo.description}</p>
                         <div class="flex justify-between text-xs text-gray-500">
-                            <span>\${photo.dateAjout}</span>
-                            <span><i class="fas fa-eye mr-1"></i>\${photo.vues}</span>
+                            <span>${photo.dateAjout}</span>
+                            <span><i class="fas fa-eye mr-1"></i>${photo.vues}</span>
                         </div>
                     </div>
                 </div>
-            \`).join('');
+            `).join('');
         }
 
         // Afficher les catégories
         function afficherCategories() {
             const liste = document.getElementById('categoriesList');
-            liste.innerHTML = categories.map(cat => \`
-                liste.innerHTML = (categories ?? []).map(cat => \`
+            liste.innerHTML = (categories ?? []).map(cat => `
                 <div class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded-lg">
-                    <span class="text-sm font-medium capitalize">\${cat}</span>
-                    <button onclick="supprimerCategorie('\${cat}')" class="text-red-500 hover:text-red-700 text-sm">
+                    <span class="text-sm font-medium capitalize">${cat}</span>
+                    <button onclick="supprimerCategorie('${cat}')" class="text-red-500 hover:text-red-700 text-sm">
                         <i class="fas fa-times"></i>
                     </button>
                 </div>
-            \`).join('');
+            `).join('');
         }
 
         // Mettre à jour le sélecteur de catégories
         function mettreAJourSelecteur() {
             const select = document.getElementById('photoCategory');
-            select.innerHTML = categories.map(cat => 
-                select.innerHTML = (categories ?? []).map(cat => 
-                \`<option value="\${cat}" class="capitalize">\${cat}</option>\`
+            select.innerHTML = (categories ?? []).map(cat => 
+                `<option value="${cat}" class="capitalize">${cat}</option>`
             ).join('');
         }
 
@@ -344,6 +380,12 @@ app.get('/', (c) => {
 
         // Initialiser au chargement
         document.addEventListener('DOMContentLoaded', chargerDonnees);
+        // Exposer les fonctions globalement pour les handlers inline
+        window.ajouterPhoto = ajouterPhoto;
+        window.ajouterCategorie = ajouterCategorie;
+        window.supprimerCategorie = supprimerCategorie;
+        window.supprimerPhoto = supprimerPhoto;
+        window.viderGalerie = viderGalerie;
     </script>
 </body>
 </html>

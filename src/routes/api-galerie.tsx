@@ -83,8 +83,8 @@ if (photosStorage.length === 0) {
     photosStorage = [...photosDemo]
 }
 
-// GET /api/photos - Récupérer toutes les photos
-app.get('/photos', (c) => {
+// GET /api/galerie/photos - Récupérer toutes les photos
+app.get('/galerie/photos', (c) => {
     return c.json({
         success: true,
         photos: photosStorage,
@@ -92,16 +92,16 @@ app.get('/photos', (c) => {
     })
 })
 
-// GET /api/categories - Récupérer toutes les catégories
-app.get('/categories', (c) => {
+// GET /api/galerie/categories - Récupérer toutes les catégories
+app.get('/galerie/categories', (c) => {
     return c.json({
         success: true,
         categories: categoriesStorage
     })
 })
 
-// POST /api/photos - Ajouter une photo
-app.post('/photos', async (c) => {
+// POST /api/galerie/photos - Ajouter une photo
+app.post('/galerie/photos', async (c) => {
     try {
         const data = await c.req.json()
         const { titre, description, categorie, src } = data
@@ -138,8 +138,8 @@ app.post('/photos', async (c) => {
     }
 })
 
-// DELETE /api/photos/:id - Supprimer une photo
-app.delete('/photos/:id', (c) => {
+// DELETE /api/galerie/photos/:id - Supprimer une photo
+app.delete('/galerie/photos/:id', (c) => {
     try {
         const id = parseInt(c.req.param('id'))
         const index = photosStorage.findIndex(photo => photo.id === id)
@@ -166,8 +166,8 @@ app.delete('/photos/:id', (c) => {
     }
 })
 
-// POST /api/categories - Ajouter une catégorie
-app.post('/categories', async (c) => {
+// POST /api/galerie/categories - Ajouter une catégorie
+app.post('/galerie/categories', async (c) => {
     try {
         const data = await c.req.json()
         const { nom } = data
@@ -203,8 +203,8 @@ app.post('/categories', async (c) => {
     }
 })
 
-// DELETE /api/categories/:nom - Supprimer une catégorie
-app.delete('/categories/:nom', (c) => {
+// DELETE /api/galerie/categories/:nom - Supprimer une catégorie
+app.delete('/galerie/categories/:nom', (c) => {
     try {
         const nom = c.req.param('nom')
         const index = categoriesStorage.findIndex(cat => cat === nom)
@@ -231,8 +231,8 @@ app.delete('/categories/:nom', (c) => {
     }
 })
 
-// DELETE /api/photos - Vider toute la galerie
-app.delete('/photos', (c) => {
+// DELETE /api/galerie/photos - Vider toute la galerie
+app.delete('/galerie/photos', (c) => {
     photosStorage = []
     return c.json({
         success: true,
@@ -240,8 +240,8 @@ app.delete('/photos', (c) => {
     })
 })
 
-// GET /api/stats - Statistiques de la galerie
-app.get('/stats', (c) => {
+// GET /api/galerie/stats - Statistiques de la galerie
+app.get('/galerie/stats', (c) => {
     const stats = categoriesStorage.reduce((acc, cat) => {
         acc[cat] = photosStorage.filter(photo => photo.categorie === cat).length
         return acc
